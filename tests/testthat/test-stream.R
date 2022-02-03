@@ -75,7 +75,7 @@ test_that("relocate and initialize stream", {
   expect_false(dir.exists(dir))
   x <- locate_stream(x, where = dir, initialize = TRUE)
   expect_true(dir.exists(dir))
-  expect_true(file.exists(file.path(dir, mrgsim.parallel:::.locker_file_name)))
+  expect_true(file.exists(file.path(dir, paquet:::.locker_file_name)))
   y <- new_stream(3)
   dir <- file.path(tempdir(), "test-relocate-init-2")
   dir.create(dir)
@@ -134,7 +134,7 @@ test_that("writer function - rds", {
 
 test_that("writer function - fst", {
   skip_if_not_installed("fst")
-  expect_true(mrgsim.parallel:::fst_installed())
+  expect_true(paquet:::fst_installed())
   unlink(temp_ds("write/fst"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("write/fst"), format = "fst")
   expect_true(write_stream(x[[1]], mtcars))
@@ -148,7 +148,7 @@ test_that("writer function - fst", {
 
 test_that("writer function - qs", {
   skip_if_not_installed("qs")
-  expect_true(mrgsim.parallel:::qs_installed())
+  expect_true(paquet:::qs_installed())
   unlink(temp_ds("write/qs"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("write/qs"), format = "qs")
   expect_true(write_stream(x[[1]], mtcars))
@@ -158,7 +158,7 @@ test_that("writer function - qs", {
 
 test_that("writer function - feather", {
   skip_if_not_installed("arrow")
-  expect_true(mrgsim.parallel:::arrow_installed())
+  expect_true(paquet:::arrow_installed())
   unlink(temp_ds("write/arrow"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("write/arrow"), format = "feather")
   expect_true(write_stream(x[[1]], mtcars))

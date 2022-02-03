@@ -43,7 +43,8 @@ has_arrow <- requireNamespace("arrow")
 
 ```{r, results = "hide", message = FALSE, warning = FALSE}
 library(dplyr)
-library(mrgsim.parallel)
+library(paquet)
+library(mrgsolve)
 ```
 
 In the simplest use case, we might want to simulate some large number of 
@@ -192,7 +193,7 @@ head(sims[[8]])
 ```
 
 
-`mrgsim.parallel` provides a helper function for reading in a set 
+`paquet` provides a helper function for reading in a set 
 of `fst` files
 
 ```{r}
@@ -394,7 +395,7 @@ an error.
 Once you create a locker space, that space is reserved for storing output 
 files and should __only__ be used for storing files that are saved using
 `write_stream()`. The locker space is marked by a hidden file that tells
-`mrgsim.parallel` that this is a locker space
+`paquet` that this is a locker space
 
 ```{r}
 x <- new_stream(3, locker = locker)

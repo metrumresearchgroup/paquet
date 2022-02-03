@@ -59,5 +59,5 @@ test_that("version a locker", {
   x <- version_locker(locker, version = "v33", overwrite = TRUE)
   expect_true(dir.exists(x))
   x <- version_locker(locker, version = "v33", overwrite = TRUE, noreset = TRUE)
-  expect_false(mrgsim.parallel:::is_locker_dir(x))
+  expect_false(paquet:::is_locker_dir(x))
 })
