@@ -1,0 +1,15 @@
+foo
+NEWS\.md
+^.*\.Rproj$
+^\.Rproj\.user$
+test\.R
+Makefile
+^paquet_.*\.tar\.gz
+paquet\.Rcheck
+\.Rhistory
+README\.md
+README\.Rmd
+README\.html
+man/figures
+docs
+^.*\.tar\.gz$

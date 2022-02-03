@@ -1,0 +1,65 @@
+STID,STORY,test,file,context,nb,failed,skipped,error,warning,passed
+CHUNK001,"As a user, I want to chunk a data frame into a list of smaller data frames by the row number. 
+",chunk data,test-chunk.R,chunk data sets,13,0,FALSE,FALSE,0,13
+CHUNK001,"As a user, I want to chunk a data frame into a list of smaller data frames by the row number. 
+",chunk bad input,test-chunk.R,chunk data sets,14,0,FALSE,FALSE,0,14
+CHUNK002,"As a user, I want to chunk a data frame into a list of smaller data frames by the row number. 
+",chunk data,test-chunk.R,chunk data sets,13,0,FALSE,FALSE,0,13
+CHUNK003,"As a user, I want to chunk a data frame into a list of smaller data frames by the unique values found in multiple columns.
+",chunk data by multiple cols,test-chunk.R,chunk data sets,3,0,FALSE,FALSE,0,3
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",set up locker,test-locker.R,locker,2,0,FALSE,FALSE,0,2
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",warn if directory isn't empty on reset,test-locker.R,locker,1,0,FALSE,FALSE,0,1
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",create new stream with locker and format,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+LOCKER002,"As a user, I want to reset a pre-established locker space. 
+",reset locker,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+LOCKER003,"As a user, I want to mark a locker space to be ineligible for reset. 
+",retire a locker,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+LOCKER004,"As a user, I want to create a backup version of a locker space. 
+",version a locker,test-locker.R,locker,4,0,FALSE,FALSE,0,4
+STREAM001,"As a user, I want to create a stream of output file names. 
+",create new stream,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM001,"As a user, I want to create a stream of output file names. 
+",create new stream from character,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM001,"As a user, I want to create a stream of output file names. 
+",create new stream with locker,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",create new stream with locker and format,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",add format to stream with locker,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",add format to stream without locker,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM003,"As a user, I want to relocate a stream of output file names. 
+",relocate stream,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM003,"As a user, I want to relocate a stream of output file names. 
+",relocate and initialize stream,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM004,"As a user, I want to set or update the extension for a stream of output  file names. 
+",create new stream with ext,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM004,"As a user, I want to set or update the extension for a stream of output  file names. 
+",add ext to stream,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM005,"As a user, I want to be able to template an output file stream based on a  list of input objects.
+",create new stream from list,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM006,"As a user, I want to be able to initialize output file locker space at the  time the file stream location is set or updated.
+",relocate and initialize stream,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM006,"As a user, I want to be able to initialize output file locker space at the  time the file stream location is set or updated.
+",create new stream with locker,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",writer function - fst,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",writer function - feather,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",writer function - qs,test-stream.R,test-stream,3,0,FALSE,FALSE,0,3
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",writer function - rds,test-stream.R,test-stream,2,0,FALSE,FALSE,0,2
+STREAM011,"As a user, I want the locker space automatically reset whenever the file  stream is re-created with the same locker name.
+",reset locker,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+STREAM012,"As a user, I want to be able to template an output file stream based on a data frame to be chunked to list.
+",create new stream from data.frame,test-stream.R,test-stream,8,0,FALSE,FALSE,0,8
+FST001,"As a user, I want to be able to internalize a set of output files in  a locker space when saved in fst format.
+",save to fst,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4
+FST002,"As a user, I want to be able to get a list of output files in a locker  space when saved in fst format.
+",save to fst,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4
+FST003,"As a user, I want to be able to look at the head of a set of output files in a locker space when saved in fst format.
+",save to fst,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4
