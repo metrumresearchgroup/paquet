@@ -2,7 +2,7 @@ library(testthat)
 
 context("test-stream")
 
-test_that("create new stream", {
+test_that("create new stream [PQT-STRM-001]", {
   x <- new_stream(5)
   expect_equal(length(x), 5)
   expect_is(x, "file_stream")
@@ -11,7 +11,7 @@ test_that("create new stream", {
   expect_equal(x[[3]]$file, "3-5")
 })
 
-test_that("create new stream from list", {
+test_that("create new stream from list [PQT-STRM-001]", {
   a <- list(mtcars, mtcars, mtcars)
   x <- new_stream(a)
   expect_equal(length(x), 3)
@@ -22,7 +22,7 @@ test_that("create new stream from list", {
   expect_equal(x[[1]]$file, "1-3")
 })
 
-test_that("create new stream from data.frame", {
+test_that("create new stream from data.frame [PQT-STRM-001]", {
   a <- expand.grid(ID = 1:50, B = c(2,3))
   a$ID <- seq(nrow(a))
   x <- new_stream(a, 5)
@@ -40,7 +40,7 @@ test_that("create new stream from data.frame", {
   )
 })
 
-test_that("create new stream from character", {
+test_that("create new stream from character [PQT-STRM-001]", {
   x <- new_stream(letters[1:5])
   expect_equal(length(x), 5)
   expect_identical(x[[4]]$x, "d")
@@ -50,25 +50,25 @@ test_that("create new stream from character", {
   expect_equal(x[[1]]$file, "1-5")
 })
 
-test_that("create new stream with ext", {
+test_that("create new stream with ext [PQT-STRM-002]", {
   x <- new_stream(5, ext = ".bar")
   expect_equal(x[[3]]$file, "3-5.bar")
 })
 
-test_that("add ext to stream ", {
+test_that("add ext to stream [PQT-STRM-003]", {
   x <- new_stream(11)
   x <- ext_stream(x, ".feather")
   expect_equal(x[[2]]$file, "02-11.feather")
 })
 
-test_that("relocate stream ", {
+test_that("relocate stream [PQT-STRM-004]", {
   x <- new_stream(2)
   x <- locate_stream(x, temp_ds("kyle"))
   test <- basename(dirname(x[[1]]$file))
   expect_equal(test, "kyle")
 })
 
-test_that("relocate and initialize stream", {
+test_that("relocate and initialize stream [PQT-STRM-005]", {
   x <- new_stream(2)
   dir <- file.path(tempdir(), "test-relocate-init")
   if(dir.exists(dir)) unlink(dir, recursive = TRUE)
@@ -86,7 +86,7 @@ test_that("relocate and initialize stream", {
   unlink(dir, recursive = TRUE)
 })
 
-test_that("create new stream with locker", {
+test_that("create new stream with locker [PQT-STRM-006]", {
   unlink(temp_ds("foo"), recursive = TRUE)
   x <- new_stream(5, locker = temp_ds("foo"))
   expect_is(x, "locker_stream")
@@ -96,7 +96,7 @@ test_that("create new stream with locker", {
   expect_equal(tst, "foo")
 })
 
-test_that("create new stream with locker and format", {
+test_that("create new stream with locker and format [PQT-STRM-007]", {
   x <- new_stream(5, locker = temp_ds("bar"), format = "fst")  
   expect_is(x, "locker_stream")
   expect_is(x, "file_stream")
@@ -105,7 +105,7 @@ test_that("create new stream with locker and format", {
   expect_is(x[[1]], "list")
 })
 
-test_that("add format to stream with locker", {
+test_that("add format to stream with locker [PQT-STRM-008]", {
   x <- new_stream(5, locker = temp_ds("bar"))
   x <- format_stream(x, "rds")
   expect_is(x, "locker_stream")
@@ -115,7 +115,7 @@ test_that("add format to stream with locker", {
   expect_is(x[[1]], "list")
 })
 
-test_that("add format to stream without locker", {
+test_that("add format to stream without locker [PQT-STRM-008]", {
   x <- new_stream(5)
   expect_warning(
     format_stream(x, "rds", warn = TRUE), 
@@ -124,7 +124,7 @@ test_that("add format to stream without locker", {
   )
 })
 
-test_that("writer function - rds", {
+test_that("writer function: rds [PQT-STRM-009]", {
   unlink(temp_ds("write/rds"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("write/rds"), format = "rds")
   expect_true(write_stream(x[[1]], mtcars))
@@ -132,7 +132,7 @@ test_that("writer function - rds", {
   expect_equal(mt, mtcars)
 })
 
-test_that("writer function - fst", {
+test_that("writer function: fst [PQT-STRM-009]", {
   skip_if_not_installed("fst")
   expect_true(paquet:::fst_installed())
   unlink(temp_ds("write/fst"), recursive = TRUE)
@@ -146,7 +146,7 @@ test_that("writer function - fst", {
   )
 })
 
-test_that("writer function - qs", {
+test_that("writer function: qs [PQT-STRM-009]", {
   skip_if_not_installed("qs")
   expect_true(paquet:::qs_installed())
   unlink(temp_ds("write/qs"), recursive = TRUE)
@@ -156,7 +156,7 @@ test_that("writer function - qs", {
   expect_equivalent(mt, mtcars)
 })
 
-test_that("writer function - feather", {
+test_that("writer function: feather [PQT-STRM-009]", {
   skip_if_not_installed("arrow")
   expect_true(paquet:::arrow_installed())
   unlink(temp_ds("write/arrow"), recursive = TRUE)
@@ -170,7 +170,7 @@ test_that("writer function - feather", {
   )
 })
 
-test_that("writer function - default", {
+test_that("writer function: default [PQT-STRM-009]", {
   unlink(temp_ds("write/default"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("write/default"), ext = "rds")
   expect_false(write_stream(x[[1]], mtcars))
