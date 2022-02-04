@@ -1,5 +1,6 @@
 # CHUNKING UTILS -----
 CHUNK001:
+  name: Chunk data frame
   description: >
     As a user, I want to chunk a data frame into a list of smaller data frames
     by the row number. 
@@ -8,6 +9,7 @@ CHUNK001:
   - PQT-CHNK-003
   ProductRisk: low
 CHUNK002:
+  name: Chunk data frame by unique values
   description: >
     As a user, I want to chunk a data frame into a list of smaller data frames
     by the unique values found in multiple columns.
@@ -17,6 +19,7 @@ CHUNK002:
 
 # LOCKER -----
 LOCKER001: 
+  name: Set up locker
   description: >
     As a user, I want to set up a directory that is dedicated for storing a 
     single set of output files from a single simulation.
@@ -26,18 +29,21 @@ LOCKER001:
   - PQT-STRM-007
   ProductRisk: low
 LOCKER002: 
+  name: Reset locker
   description: >
     As a user, I want to reset a pre-established locker space. 
   tests: 
   - PQT-LOCK-002
   ProductRisk: low
 LOCKER003: 
+  name: Block locker reset
   description: >
     As a user, I want to mark a locker space to be ineligible for reset. 
   tests: 
   - PQT-LOCK-004
   ProductRisk: low
 LOCKER004:
+  name: Version locker
   description: >
     As a user, I want to create a backup version of a locker space. 
   tests: 
@@ -46,6 +52,7 @@ LOCKER004:
 
 # FILE STREAMS -----
 STREAM001:
+  name: Create stream
   description: >
     As a user, I want to create a stream of output file names. 
   tests: 
@@ -53,6 +60,7 @@ STREAM001:
   - PQT-STRM-006
   ProductRisk: low
 STREAM002:
+  name: Associate output format with stream
   description: >
     As a user, I want to associate an output format for a stream of output file names.
   tests: 
@@ -60,6 +68,7 @@ STREAM002:
   - PQT-STRM-008
   ProductRisk: low
 STREAM003: 
+  name: Relocate stream
   description: >
     As a user, I want to relocate a stream of output file names. 
   tests: 
@@ -67,6 +76,7 @@ STREAM003:
   - PQT-STRM-005
   ProductRisk: low
 STREAM004: 
+  name: Update extension of stream
   description: >
     As a user, I want to set or update the extension for a stream of output 
     file names. 
@@ -75,6 +85,7 @@ STREAM004:
   - PQT-STRM-003
   ProductRisk: low
 STREAM005: 
+  name: Template stream from list
   description: >
     As a user, I want to be able to template an output file stream based on a 
     list of input objects.
@@ -82,6 +93,7 @@ STREAM005:
   - PQT-STRM-001
   ProductRisk: low
 STREAM006: 
+  name: Initialize locker when stream location changes
   description: >
     As a user, I want to be able to initialize output file locker space at the 
     time the file stream location is set or updated.
@@ -90,30 +102,35 @@ STREAM006:
   - PQT-STRM-006
   ProductRisk: low
 STREAM007: 
+  name: Write to fst format
   description: >
     As a user, I want to automatically write simulated output in fst format.
   tests: 
   - PQT-STRM-009
   ProductRisk: low
 STREAM008: 
+  name: Write to feather format
   description: >
     As a user, I want to automatically write simulated output in feather format.
   tests: 
   - PQT-STRM-009
   ProductRisk: low
 STREAM009: 
+  name: Write to qs format
   description: >
     As a user, I want to automatically write simulated output in qs format.
   tests:
   - PQT-STRM-009
   ProductRisk: low
 STREAM010: 
+  name: Write to rds format
   description: >
     As a user, I want to automatically write simulated output in rds format.
   tests: 
   - PQT-STRM-009
   ProductRisk: low
 STREAM011: 
+  name: Reset locker when stream re-created
   description: >
     As a user, I want the locker space automatically reset whenever the file 
     stream is re-created with the same locker name.
@@ -121,6 +138,7 @@ STREAM011:
   - PQT-LOCK-002
   ProductRisk: low
 STREAM012: 
+  name: Template stream from data frame
   description: >
     As a user, I want to be able to template an output file stream based on a
     data frame to be chunked to list.
@@ -130,6 +148,7 @@ STREAM012:
 
 # FST FILES -----
 FST001: 
+  name: Internalize output files from fst
   description: >
     As a user, I want to be able to internalize a set of output files in 
     a locker space when saved in fst format.
@@ -137,6 +156,7 @@ FST001:
   - PQT-FST-001
   ProductRisk: low
 FST002: 
+  name: List ouput files from fst
   description: >
     As a user, I want to be able to get a list of output files in a locker 
     space when saved in fst format.
@@ -144,6 +164,7 @@ FST002:
   - PQT-FST-001
   ProductRisk: low
 FST003:
+  name: See head of files from fst
   description: >
     As a user, I want to be able to look at the head of a set of output files
     in a locker space when saved in fst format.
