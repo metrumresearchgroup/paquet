@@ -10,4 +10,4 @@ x$result <- NULL
 x$user <- NULL
 x$system <- NULL
 x$real <- NULL
-write_csv(x = x, file = "inst/docs/tests.csv")
+write_csv(x = x, file = "inst/validation/tests.csv")
