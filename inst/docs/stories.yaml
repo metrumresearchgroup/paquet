@@ -6,12 +6,14 @@ CHUNK001:
   tests: 
   - PQT-CHNK-001
   - PQT-CHNK-003
+  ProductRisk: low
 CHUNK002:
   description: >
     As a user, I want to chunk a data frame into a list of smaller data frames
     by the unique values found in multiple columns.
   tests: 
   - PQT-CHNK-002
+  ProductRisk: low
 
 # LOCKER -----
 LOCKER001: 
@@ -22,21 +24,25 @@ LOCKER001:
   - PQT-LOCK-001
   - PQT-LOCK-003
   - PQT-STRM-007
+  ProductRisk: low
 LOCKER002: 
   description: >
     As a user, I want to reset a pre-established locker space. 
   tests: 
   - PQT-LOCK-002
+  ProductRisk: low
 LOCKER003: 
   description: >
     As a user, I want to mark a locker space to be ineligible for reset. 
   tests: 
   - PQT-LOCK-004
+  ProductRisk: low
 LOCKER004:
   description: >
     As a user, I want to create a backup version of a locker space. 
   tests: 
   - PQT-LOCK-005
+  ProductRisk: low
 
 # FILE STREAMS -----
 STREAM001:
@@ -45,18 +51,21 @@ STREAM001:
   tests: 
   - PQT-STRM-001
   - PQT-STRM-006
+  ProductRisk: low
 STREAM002:
   description: >
     As a user, I want to associate an output format for a stream of output file names.
   tests: 
   - PQT-STRM-007
   - PQT-STRM-008
+  ProductRisk: low
 STREAM003: 
   description: >
     As a user, I want to relocate a stream of output file names. 
   tests: 
   - PQT-STRM-004
   - PQT-STRM-005
+  ProductRisk: low
 STREAM004: 
   description: >
     As a user, I want to set or update the extension for a stream of output 
@@ -64,12 +73,14 @@ STREAM004:
   tests: 
   - PQT-STRM-002
   - PQT-STRM-003
+  ProductRisk: low
 STREAM005: 
   description: >
     As a user, I want to be able to template an output file stream based on a 
     list of input objects.
   tests: 
   - PQT-STRM-001
+  ProductRisk: low
 STREAM006: 
   description: >
     As a user, I want to be able to initialize output file locker space at the 
@@ -77,38 +88,45 @@ STREAM006:
   tests: 
   - PQT-STRM-005
   - PQT-STRM-006
+  ProductRisk: low
 STREAM007: 
   description: >
     As a user, I want to automatically write simulated output in fst format.
   tests: 
   - PQT-STRM-009
+  ProductRisk: low
 STREAM008: 
   description: >
     As a user, I want to automatically write simulated output in feather format.
   tests: 
   - PQT-STRM-009
+  ProductRisk: low
 STREAM009: 
   description: >
     As a user, I want to automatically write simulated output in qs format.
   tests:
   - PQT-STRM-009
+  ProductRisk: low
 STREAM010: 
   description: >
     As a user, I want to automatically write simulated output in rds format.
   tests: 
   - PQT-STRM-009
+  ProductRisk: low
 STREAM011: 
   description: >
     As a user, I want the locker space automatically reset whenever the file 
     stream is re-created with the same locker name.
   tests: 
   - PQT-LOCK-002
+  ProductRisk: low
 STREAM012: 
   description: >
     As a user, I want to be able to template an output file stream based on a
     data frame to be chunked to list.
   tests: 
   - PQT-STRM-001
+  ProductRisk: low
 
 # FST FILES -----
 FST001: 
@@ -117,15 +135,18 @@ FST001:
     a locker space when saved in fst format.
   tests: 
   - PQT-FST-001
+  ProductRisk: low
 FST002: 
   description: >
     As a user, I want to be able to get a list of output files in a locker 
     space when saved in fst format.
   tests: 
   - PQT-FST-001
+  ProductRisk: low
 FST003:
   description: >
     As a user, I want to be able to look at the head of a set of output files
     in a locker space when saved in fst format.
   tests: 
   - PQT-FST-001
+  ProductRisk: low
