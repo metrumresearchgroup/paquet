@@ -1,0 +1,30 @@
+file,context,test,nb,failed,skipped,error,warning,passed
+test-chunk.R,chunk data sets,chunk data [PQT-CHNK-001],13,0,FALSE,FALSE,0,13
+test-chunk.R,chunk data sets,chunk data by multiple cols [PQT-CHNK-002],3,0,FALSE,FALSE,0,3
+test-chunk.R,chunk data sets,chunk bad input [PQT-CHNK-003],14,0,FALSE,FALSE,0,14
+test-file-set.R,file set,generate file set list,3,0,FALSE,FALSE,0,3
+test-file-set.R,file set,generate file set names,3,0,FALSE,FALSE,0,3
+test-file-set.R,file set,create file stream,4,0,FALSE,FALSE,0,4
+test-fst.R,test-fst,save to fst [PQT-FST-001],4,0,FALSE,FALSE,0,4
+test-locker.R,locker,set up locker [PQT-LOCK-001],2,0,FALSE,FALSE,0,2
+test-locker.R,locker,reset locker [PQT-LOCK-002],3,0,FALSE,FALSE,0,3
+test-locker.R,locker,warn if directory isn't empty on reset [PQT-LOCK-003],1,0,FALSE,FALSE,0,1
+test-locker.R,locker,retire a locker [PQT-LOCK-004],3,0,FALSE,FALSE,0,3
+test-locker.R,locker,version a locker [PQT-LOCK-005],4,0,FALSE,FALSE,0,4
+test-stream.R,test-stream,create new stream [PQT-STRM-001],5,0,FALSE,FALSE,0,5
+test-stream.R,test-stream,create new stream from list [PQT-STRM-001],6,0,FALSE,FALSE,0,6
+test-stream.R,test-stream,create new stream from data.frame [PQT-STRM-001],8,0,FALSE,FALSE,0,8
+test-stream.R,test-stream,create new stream from character [PQT-STRM-001],6,0,FALSE,FALSE,0,6
+test-stream.R,test-stream,create new stream with ext [PQT-STRM-002],1,0,FALSE,FALSE,0,1
+test-stream.R,test-stream,add ext to stream [PQT-STRM-003],1,0,FALSE,FALSE,0,1
+test-stream.R,test-stream,relocate stream [PQT-STRM-004],1,0,FALSE,FALSE,0,1
+test-stream.R,test-stream,relocate and initialize stream [PQT-STRM-005],4,0,FALSE,FALSE,0,4
+test-stream.R,test-stream,create new stream with locker [PQT-STRM-006],4,0,FALSE,FALSE,0,4
+test-stream.R,test-stream,create new stream with locker and format [PQT-STRM-007],5,0,FALSE,FALSE,0,5
+test-stream.R,test-stream,add format to stream with locker [PQT-STRM-008],5,0,FALSE,FALSE,0,5
+test-stream.R,test-stream,add format to stream without locker [PQT-STRM-008],1,0,FALSE,FALSE,0,1
+test-stream.R,test-stream,writer function: rds [PQT-STRM-009],2,0,FALSE,FALSE,0,2
+test-stream.R,test-stream,writer function: fst [PQT-STRM-009],4,0,FALSE,FALSE,0,4
+test-stream.R,test-stream,writer function: qs [PQT-STRM-009],3,0,FALSE,FALSE,0,3
+test-stream.R,test-stream,writer function: feather [PQT-STRM-009],4,0,FALSE,FALSE,0,4
+test-stream.R,test-stream,writer function: default [PQT-STRM-009],1,0,FALSE,FALSE,0,1

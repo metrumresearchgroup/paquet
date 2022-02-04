@@ -2,13 +2,13 @@ library(testthat)
 
 context("locker")
 
-test_that("set up locker", {
+test_that("set up locker [PQT-LOCK-001]", {
   x <- setup_locker(tempdir(), "foo")
   expect_length(x, 1)
   expect_is(x, "character")
 })
 
-test_that("reset locker", {
+test_that("reset locker [PQT-LOCK-002]", {
   x <- setup_locker(tempdir(), "foo")
   cat("...", file = file.path(x, "foo.fst"))
   y <- reset_locker(file.path(tempdir(), "foo"))
@@ -17,7 +17,7 @@ test_that("reset locker", {
   expect_length(list.files(x), 0)
 })
 
-test_that("warn if directory isn't empty on reset", {
+test_that("warn if directory isn't empty on reset [PQT-LOCK-003]", {
   unlink(temp_ds("foo"), recursive = TRUE)
   x <- new_stream(1, locker = temp_ds("foo"))
   cat(letters, file = file.path(temp_ds("foo"), "letters.txt"))
@@ -27,7 +27,7 @@ test_that("warn if directory isn't empty on reset", {
   )
 })
 
-test_that("retire a locker", {
+test_that("retire a locker [PQT-LOCK-004]", {
   locker <- temp_ds("foo")
   unlink(locker, recursive = TRUE)
   x <- new_stream(5, locker = locker)
@@ -42,7 +42,7 @@ test_that("retire a locker", {
   expect_equal(list.files(locker), "foo.fst")
 })
 
-test_that("version a locker", {
+test_that("version a locker [PQT-LOCK-005]", {
   locker <- temp_ds("foo")  
   if(dir.exists(locker)) unlink(locker, recursive = TRUE)
   new_locker <- temp_ds("foo-v33")

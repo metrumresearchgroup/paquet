@@ -10,5 +10,5 @@ Paquets of fun.
 
 ## More info
 
-See [inst/docs/stories.md (on GitHub only)](inst/docs/stories.md) for
-more details.
+See [inst/validation/stories.md (on GitHub
+only)](inst/validation/stories.md) for more details.
