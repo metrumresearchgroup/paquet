@@ -42,7 +42,19 @@ test_that("retire a locker [PQT-LOCK-004]", {
   expect_equal(list.files(locker), "foo.fst")
 })
 
-test_that("version a locker [PQT-LOCK-005]", {
+test_that("retire a locker on create [PQT-LOCK-005]", {
+  locker <- temp_ds("foo")
+  unlink(locker, recursive = TRUE)
+  x <- new_stream(5, locker = locker, noreset = TRUE)
+  cat("foo", file = file.path(locker, 'foo.fst'))
+  expect_error(
+    new_stream(5, locker = locker), 
+    regexp = "but doesn't appear to be a valid locker"
+  )
+  expect_equal(list.files(locker), "foo.fst")
+})
+
+test_that("version a locker [PQT-LOCK-006]", {
   locker <- temp_ds("foo")  
   if(dir.exists(locker)) unlink(locker, recursive = TRUE)
   new_locker <- temp_ds("foo-v33")

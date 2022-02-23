@@ -14,6 +14,17 @@ is_locker_dir <- function(where) {
 
 .locker_file_name <- ".mrgsim-parallel-locker-dir" 
 
+ok_to_clear_locker <- function(ask) {
+  if(isTRUE(ask)) {
+    question <- "Resetting locker and removing all files; Are you sure?"
+    ans <- askYesNo(question, default = FALSE)
+    if(!isTRUE(ans)) {
+      stop("User declined to reset the locker; stopping.", call. = FALSE)  
+    }
+  }
+  return(invisible(NULL))
+}
+
 clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
   if(!file.exists(locker_path)) {
     msg <- c(
@@ -23,13 +34,7 @@ clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
     )
     stop(msg)
   }
-  if(isTRUE(ask)) {
-    question <- "Resetting locker and removing all files; Are you sure?"
-    ans <- askYesNo(question)
-    if(!isTRUE(ans)) {
-      stop("User declined to reset the locker; stopping.", call. = FALSE)  
-    }
-  }
+  ok_to_clear_locker(ask)
   if(!is.character(pattern)) {
     pattern <- "\\.(fst|feather|csv|qs|rds|ext)$"
   } 
