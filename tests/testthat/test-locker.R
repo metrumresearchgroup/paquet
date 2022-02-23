@@ -45,7 +45,10 @@ test_that("retire a locker [PQT-LOCK-004]", {
 test_that("retire a locker on create [PQT-LOCK-005]", {
   locker <- temp_ds("foo")
   unlink(locker, recursive = TRUE)
-  x <- new_stream(5, locker = locker, noreset = TRUE)
+  expect_message(
+    x <- new_stream(5, locker = locker, noreset = TRUE), 
+    regexp="Making the locker non-resettable"
+  )
   cat("foo", file = file.path(locker, 'foo.fst'))
   expect_error(
     new_stream(5, locker = locker), 
