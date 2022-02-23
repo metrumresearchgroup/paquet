@@ -4,7 +4,7 @@
 \alias{setup_locker}
 \title{Set up a data storage locker}
 \usage{
-setup_locker(where, tag = locker_tag(where))
+setup_locker(where, tag = locker_tag(where), ask = FALSE, noreset = FALSE)
 }
 \arguments{
 \item{where}{The directory that contains tagged directories of run
@@ -13,6 +13,12 @@ results.}
 \item{tag}{The name of a folder under \code{where}; this directory must not
 exist the first time the locker is set up and \strong{will be deleted} and
 re-created each time it is used to store output from a new simulation run.}
+
+\item{ask}{If \code{TRUE}, then user will be asked to confirm prior to resetting
+the locker space; the default is \code{FALSE}.}
+
+\item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
+locker directory to prevent future resets.}
 }
 \value{
 The locker location.
@@ -26,6 +32,10 @@ function and documentation is provided in order to better communicate how
 the locker works.
 }
 \details{
+The user is encouraged to \strong{read the documentation} and understand the \code{ask}
+and \code{noreset} arguments. These may be important tools for you to use to
+ensure the safety of outputs stored in locker space.
+
 \code{where} must exist when setting up the locker. The directory \code{tag} will be
 created under \code{where} and must not exist except if it had previously been
 set up using \code{setup_locker}. Existing \code{tag} directories will have a

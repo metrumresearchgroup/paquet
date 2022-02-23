@@ -4,7 +4,15 @@
 \alias{file_stream}
 \title{Create a stream of files}
 \usage{
-file_stream(n, locker = NULL, format = NULL, where = NULL, ...)
+file_stream(
+  n,
+  locker = NULL,
+  format = NULL,
+  where = NULL,
+  ask = FALSE,
+  noreset = FALSE,
+  ...
+)
 }
 \arguments{
 \item{n}{The number of file names to generate; must be a single numeric
@@ -18,6 +26,12 @@ directory.}
 
 \item{where}{An optional file path; this is replaced by \code{locker} if it is
 also passed.}
+
+\item{ask}{If \code{TRUE}, then user will be asked to confirm prior to resetting
+the locker space; the default is \code{FALSE}.}
+
+\item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
+locker directory to prevent future resets.}
 
 \item{...}{Additional arguments passed to \code{\link[=file_set]{file_set()}}.}
 }

@@ -14,14 +14,21 @@ is_locker_dir <- function(where) {
 
 .locker_file_name <- ".mrgsim-parallel-locker-dir" 
 
-clear_locker <- function(where, locker_path, pattern) {
+clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
   if(!file.exists(locker_path)) {
     msg <- c(
-      "the dataset directory exists, but doesn't appear to be a valid ",
+      "The dataset directory exists, but doesn't appear to be a valid ",
       "locker location; please manually remove the folder or specify a new ",
       "folder and try again."
     )
     stop(msg)
+  }
+  if(isTRUE(ask)) {
+    ans <- askYesNo("Resetting locker and removing all files; Are you sure?"
+    )
+    if(!isTRUE(ans)) {
+      stop("User declined to reset the locker; stopping.", call. = FALSE)  
+    }
   }
   if(!is.character(pattern)) {
     pattern <- "\\.(fst|feather|csv|qs|rds|ext)$"
@@ -47,7 +54,14 @@ clear_locker <- function(where, locker_path, pattern) {
 #' This function is called by [setup_locker()] to initialize and 
 #' re-initialize a locker directory. We call it `reset_locker` because it is 
 #' expected that the locker space is created once and then repeatedly 
-#' reset and simulations are run and re-run. 
+#' reset and simulations are run and re-run. __It is the responsibility of 
+#' the user to take advantage of the features provided by paquet to ensure 
+#' the safety of outputs stored in locker space__.
+#' 
+#' @details
+#' The user is encouraged to __read the documentation__ and understand the `ask` 
+#' argument. This may be an important tool for you to use to ensure the safety 
+#' of outputs stored in locker space. 
 #' 
 #' For the locker space to be initialized, the `where` directory must not 
 #' exist; if it exists, there will be an error. It is also an error for 
@@ -61,15 +75,17 @@ clear_locker <- function(where, locker_path, pattern) {
 #' @param where The full path to the locker. 
 #' @param pattern A regular expression for finding files to clear from the 
 #' locker directory.
+#' @param ask If `TRUE`, then user will be asked to confirm prior to resetting
+#' the locker space; the default is `FALSE`.
 #' 
 #' @seealso [setup_locker()], [noreset_locker()], [version_locker()]
 #' 
 #' @export
-reset_locker <- function(where, pattern = NULL) {
+reset_locker <- function(where, pattern = NULL, ask = FALSE) {
   locker_file <- .locker_file_name
   locker_path <- file.path(where, locker_file)
   if(dir.exists(where)) {
-    clear_locker(where, locker_path, pattern)
+    clear_locker(where, locker_path, pattern, ask = ask)
   } else {
     dir.create(where, recursive = TRUE)
   }
@@ -84,8 +100,13 @@ reset_locker <- function(where, pattern = NULL) {
 #' When the number of simulation result sets is known, a stream of file names
 #' is returned. This function is mainly called by other functions; an exported
 #' function and documentation is provided in order to better communicate how
-#' the locker works. 
-#' 
+#' the locker works.
+#'  
+#' @details
+#' The user is encouraged to __read the documentation__ and understand the `ask` 
+#' and `noreset` arguments. These may be important tools for you to use to 
+#' ensure the safety of outputs stored in locker space.  
+#'  
 #' `where` must exist when setting up the locker. The directory `tag` will be 
 #' created under `where` and must not exist except if it had previously been 
 #' set up using `setup_locker`. Existing `tag` directories will have a 
@@ -97,11 +118,14 @@ reset_locker <- function(where, pattern = NULL) {
 #' need to be preserved. You can call [noreset_locker()] on that directory
 #' to prevent future resets. 
 #' 
+#' @inheritParams reset_locker
 #' @param where The directory that contains tagged directories of run 
 #' results.
 #' @param tag The name of a folder under `where`; this directory must not 
 #' exist the first time the locker is set up and __will be deleted__ and 
 #' re-created each time it is used to store output from a new simulation run.
+#' @param noreset If `TRUE` then [noreset_locker()] will be called on the 
+#' locker directory to prevent future resets.
 #' 
 #' @return
 #' The locker location.
@@ -113,7 +137,8 @@ reset_locker <- function(where, pattern = NULL) {
 #' @seealso [reset_locker()], [noreset_locker()], [version_locker()]
 #' 
 #' @export
-setup_locker <- function(where, tag = locker_tag(where)) {
+setup_locker <- function(where, tag = locker_tag(where), ask = FALSE, 
+                         noreset = FALSE) {
   if(missing(tag)) {
     output_folder <- where
     where <- dirname(where)
@@ -123,7 +148,11 @@ setup_locker <- function(where, tag = locker_tag(where)) {
   if(!dir.exists(where)) {
     dir.create(where, recursive = TRUE)
   }
-  reset_locker(output_folder)
+  reset_locker(output_folder, ask = ask)
+  if(isTRUE(noreset)) {
+    message("Making the locker non-resettable.")
+    noreset_locker(output_folder)
+  }
   return(invisible(output_folder))
 }
 
@@ -131,7 +160,9 @@ setup_locker <- function(where, tag = locker_tag(where)) {
 #' 
 #' This function removes the the hidden locker file which designates a directory
 #' as a locker. Once the locker is modified this way, it cannot be reset again 
-#' by calling [setup_locker()] or [new_stream()].
+#' by calling [setup_locker()] or [new_stream()]. __It is the responsibility 
+#' of the user to take advantage of the features provided by paquet to ensure 
+#' the safety of outputs stored in locker space__.
 #' 
 #' @param where The locker location. 
 #' 

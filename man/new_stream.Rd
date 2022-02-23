@@ -10,9 +10,18 @@
 \usage{
 new_stream(x, ...)
 
-\method{new_stream}{list}(x, locker = NULL, format = NULL, ...)
+\method{new_stream}{list}(x, locker = NULL, format = NULL, ask = FALSE, noreset = FALSE, ...)
 
-\method{new_stream}{data.frame}(x, nchunk, cols = "ID", locker = NULL, format = NULL, ...)
+\method{new_stream}{data.frame}(
+  x,
+  nchunk,
+  cols = "ID",
+  locker = NULL,
+  format = NULL,
+  ask = FALSE,
+  noreset = FALSE,
+  ...
+)
 
 \method{new_stream}{numeric}(x, ...)
 
@@ -29,6 +38,12 @@ directory will be unlinked if it exists and is an established locker
 directory.}
 
 \item{format}{Passed to \code{\link[=format_stream]{format_stream()}}.}
+
+\item{ask}{If \code{TRUE}, then user will be asked to confirm prior to resetting
+the locker space; the default is \code{FALSE}.}
+
+\item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
+locker directory to prevent future resets.}
 
 \item{nchunk}{The number of chunks.}
 
@@ -51,7 +66,17 @@ passed) and a class attribute for the output if \code{format} was passed.
 By stream we mean a list that pre-specifies the output file names,
 replicate numbers and possibly input objects for a simulation. Passing
 \code{locker} initiates a call to \code{\link[=setup_locker]{setup_locker()}}, which sets up or resets
-the output directories.
+the output directories. \strong{It is the responsibility of the user to take
+advantage of the features provided by paquet to ensure the safety of outputs
+stored in locker space}.
+}
+\details{
+All methods contain \code{ask} and \code{noreset} arguments which get passed to
+\code{\link[=setup_locker]{setup_locker()}}. Set \code{ask} to \code{TRUE} in order to require confirmation
+(using \code{\link[utils:askYesNo]{utils::askYesNo()}}) every time the command is run again; set
+\code{noreset} to \code{TRUE} to immediately revoke permission to reset the locker
+space. Be sure to use these options to prevent accidentally resetting the
+locker space.
 
 For the \code{data.frame} method, the data are chunked into a list by columns
 listed in \code{cols}. Ideally, this is a singlel column that operates as

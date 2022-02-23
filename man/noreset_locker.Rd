@@ -15,7 +15,9 @@ A logical value indicating if write ability was successfully revoked.
 \description{
 This function removes the the hidden locker file which designates a directory
 as a locker. Once the locker is modified this way, it cannot be reset again
-by calling \code{\link[=setup_locker]{setup_locker()}} or \code{\link[=new_stream]{new_stream()}}.
+by calling \code{\link[=setup_locker]{setup_locker()}} or \code{\link[=new_stream]{new_stream()}}. \strong{It is the responsibility
+of the user to take advantage of the features provided by paquet to ensure
+the safety of outputs stored in locker space}.
 }
 \seealso{
 \code{\link[=setup_locker]{setup_locker()}}, \code{\link[=reset_locker]{reset_locker()}}, \code{\link[=version_locker]{version_locker()}}

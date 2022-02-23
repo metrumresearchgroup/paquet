@@ -97,15 +97,27 @@ is.stream_format <- format_is_set
 #' By stream we mean a list that pre-specifies the output file names, 
 #' replicate numbers and possibly input objects for a simulation. Passing 
 #' `locker` initiates a call to [setup_locker()], which sets up or resets
-#'  the output directories. 
-#'  
-#'  For the `data.frame` method, the data are chunked into a list by columns 
-#'  listed in `cols`. Ideally, this is a singlel column that operates as 
-#'  a unique `ID` across the data set and is used by [chunk_by_id()] to 
-#'  form the chunks. Alternatively, `cols` can be multiple column names which 
-#'  are pasted together to form a unique `ID` that is used for splitting 
-#'  via [chunk_by_cols()].
+#' the output directories. __It is the responsibility of the user to take 
+#' advantage of the features provided by paquet to ensure the safety of outputs 
+#' stored in locker space__.
 #' 
+#' @details  
+#' All methods contain `ask` and `noreset` arguments which get passed to 
+#' [setup_locker()]. Set `ask` to `TRUE` in order to require confirmation 
+#' (using [utils::askYesNo()]) every time the command is run again; set 
+#' `noreset` to `TRUE` to immediately revoke permission to reset the locker 
+#' space. Be sure to use these options to prevent accidentally resetting the 
+#' locker space. 
+#' 
+#' For the `data.frame` method, the data are chunked into a list by columns 
+#' listed in `cols`. Ideally, this is a singlel column that operates as 
+#' a unique `ID` across the data set and is used by [chunk_by_id()] to 
+#' form the chunks. Alternatively, `cols` can be multiple column names which 
+#' are pasted together to form a unique `ID` that is used for splitting 
+#' via [chunk_by_cols()].
+#'  
+#' @inheritParams reset_locker 
+#' @inheritParams setup_locker
 #' @param x A list or vector to template the stream; for the `numeric` method, 
 #' passing a single number will fill `x` with a sequence of that length.
 #' @param locker Passed to [setup_locker()] as `dir`; important to note that the 
@@ -147,11 +159,14 @@ new_stream <- function(x, ...) UseMethod("new_stream")
 
 #' @rdname new_stream
 #' @export
-new_stream.list <- function(x, locker = NULL, format = NULL, ...) {
+new_stream.list <- function(x, locker = NULL, format = NULL, ask = FALSE, 
+                            noreset = FALSE,  ...) {
   if(length(x)==0) {
     stop("`x` must have length >= 1.")  
   }
-  ans <- file_stream(locker = locker, n = length(x),  ...)
+  ans <- file_stream(
+    locker = locker, n = length(x), ask = ask, noreset = noreset,  ...
+  )
   cl <- class(ans)
   ans <- Map(ans, x, f = stream_add_object, USE.NAMES = FALSE)
   class(ans) <- cl
@@ -168,7 +183,8 @@ new_stream.list <- function(x, locker = NULL, format = NULL, ...) {
 #' @rdname new_stream
 #' @export
 new_stream.data.frame <- function(x, nchunk, cols = "ID", locker = NULL, 
-                                  format = NULL, ...) {
+                                  format = NULL, ask = FALSE, noreset = FALSE, 
+                                  ...) {
   if(nchunk < 1) {
     stop("`nchunk` must be >= 1.")  
   }
@@ -180,7 +196,9 @@ new_stream.data.frame <- function(x, nchunk, cols = "ID", locker = NULL,
   } else {
     x <- chunk_by_cols(x, nchunk = nchunk, cols = cols)
   }
-  ans <- file_stream(locker = locker, n = length(x),  ...)
+  ans <- file_stream(
+    locker = locker, n = length(x), ask = ask, noreset = noreset, ...
+  )
   cl <- class(ans)
   ans <- Map(ans, x, f = stream_add_object, USE.NAMES = FALSE)
   class(ans) <- cl

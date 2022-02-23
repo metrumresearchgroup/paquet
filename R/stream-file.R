@@ -60,6 +60,8 @@ file_set <- function(n, where = NULL, prefix = NULL, pad = TRUE, sep = "-",
 #' @inheritParams format_stream
 #' @inheritParams new_stream
 #' @inheritParams file_set
+#' @inheritParams reset_locker 
+#' @inheritParams setup_locker
 #' @param n The number of file names to generate; must be a single numeric 
 #' value greater than or equal to 1.
 #' @param where An optional file path; this is replaced by `locker` if it is 
@@ -74,14 +76,15 @@ file_set <- function(n, where = NULL, prefix = NULL, pad = TRUE, sep = "-",
 #'          [file_set()]
 #' 
 #' @export
-file_stream <- function(n, locker = NULL, format = NULL, where = NULL, ...) {
+file_stream <- function(n, locker = NULL, format = NULL, where = NULL,
+                        ask = FALSE, noreset = FALSE, ...) {
   if(!is.null(locker)) {
     where <- locker  
   } 
   files <- file_set(n = n, where = where, ...)
   ans <- Map(files, seq_along(files), f = new_file_object, USE.NAMES = FALSE)
   if(is.character(locker)) {
-    blah <- setup_locker(where = locker)
+    blah <- setup_locker(where = locker, ask = ask, noreset = noreset)
     class(ans) <- c("locker_stream", class(ans))
   }
   class(ans) <- unique(c("file_stream", class(ans)))
