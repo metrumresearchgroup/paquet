@@ -40,6 +40,10 @@ Optionally, setup a locker storage space on disk with a specific file
 format (e.g. \code{fst} or \code{feather}).
 }
 \details{
+The user is encouraged to \strong{read the documentation} and understand the \code{ask}
+and \code{noreset} arguments. These may be important tools for you to use to
+ensure the safety of outputs stored in locker space.
+
 Pass \code{locker} to set up locker space for saving outputs; this involves
 clearing the \code{locker} directory (see \code{\link[=setup_locker]{setup_locker()}} for details). Passing
 \code{locker} also sets the path for output files. If you want to set up the path

@@ -52,6 +52,11 @@ file_set <- function(n, where = NULL, prefix = NULL, pad = TRUE, sep = "-",
 #' Optionally, setup a locker storage space on disk with a specific file 
 #' format (e.g. `fst` or `feather`).
 #' 
+#' @details
+#' The user is encouraged to __read the documentation__ and understand the `ask` 
+#' and `noreset` arguments. These may be important tools for you to use to 
+#' ensure the safety of outputs stored in locker space.  
+#' 
 #' Pass `locker` to set up locker space for saving outputs; this involves
 #' clearing the `locker` directory (see [setup_locker()] for details). Passing 
 #' `locker` also sets the path for output files. If you want to set up the path 

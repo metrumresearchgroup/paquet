@@ -75,8 +75,8 @@ All methods contain \code{ask} and \code{noreset} arguments which get passed to
 \code{\link[=setup_locker]{setup_locker()}}. Set \code{ask} to \code{TRUE} in order to require confirmation
 (using \code{\link[utils:askYesNo]{utils::askYesNo()}}) every time the command is run again; set
 \code{noreset} to \code{TRUE} to immediately revoke permission to reset the locker
-space. Be sure to use these options to prevent accidentally resetting the
-locker space.
+space. Be sure to \strong{consider using these options} to prevent accidentally
+resetting the locker space.
 
 For the \code{data.frame} method, the data are chunked into a list by columns
 listed in \code{cols}. Ideally, this is a singlel column that operates as

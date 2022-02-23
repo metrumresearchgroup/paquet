@@ -19,9 +19,7 @@ the locker space; the default is \code{FALSE}.}
 This function is called by \code{\link[=setup_locker]{setup_locker()}} to initialize and
 re-initialize a locker directory. We call it \code{reset_locker} because it is
 expected that the locker space is created once and then repeatedly
-reset and simulations are run and re-run. \strong{It is the responsibility of
-the user to take advantage of the features provided by paquet to ensure
-the safety of outputs stored in locker space}.
+reset and simulations are run and re-run.
 }
 \details{
 The user is encouraged to \strong{read the documentation} and understand the \code{ask}

@@ -24,8 +24,8 @@ clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
     stop(msg)
   }
   if(isTRUE(ask)) {
-    ans <- askYesNo("Resetting locker and removing all files; Are you sure?"
-    )
+    question <- "Resetting locker and removing all files; Are you sure?"
+    ans <- askYesNo(question)
     if(!isTRUE(ans)) {
       stop("User declined to reset the locker; stopping.", call. = FALSE)  
     }
@@ -54,9 +54,7 @@ clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
 #' This function is called by [setup_locker()] to initialize and 
 #' re-initialize a locker directory. We call it `reset_locker` because it is 
 #' expected that the locker space is created once and then repeatedly 
-#' reset and simulations are run and re-run. __It is the responsibility of 
-#' the user to take advantage of the features provided by paquet to ensure 
-#' the safety of outputs stored in locker space__.
+#' reset and simulations are run and re-run. 
 #' 
 #' @details
 #' The user is encouraged to __read the documentation__ and understand the `ask` 
@@ -160,9 +158,7 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
 #' 
 #' This function removes the the hidden locker file which designates a directory
 #' as a locker. Once the locker is modified this way, it cannot be reset again 
-#' by calling [setup_locker()] or [new_stream()]. __It is the responsibility 
-#' of the user to take advantage of the features provided by paquet to ensure 
-#' the safety of outputs stored in locker space__.
+#' by calling [setup_locker()] or [new_stream()]. 
 #' 
 #' @param where The locker location. 
 #' 

@@ -106,8 +106,8 @@ is.stream_format <- format_is_set
 #' [setup_locker()]. Set `ask` to `TRUE` in order to require confirmation 
 #' (using [utils::askYesNo()]) every time the command is run again; set 
 #' `noreset` to `TRUE` to immediately revoke permission to reset the locker 
-#' space. Be sure to use these options to prevent accidentally resetting the 
-#' locker space. 
+#' space. Be sure to __consider using these options__ to prevent accidentally 
+#' resetting the locker space. 
 #' 
 #' For the `data.frame` method, the data are chunked into a list by columns 
 #' listed in `cols`. Ideally, this is a singlel column that operates as 
@@ -288,6 +288,7 @@ format_stream <- function(x, type = c("fst", "feather", "qs", "rds"),
 #' reset. In order to initialize, `where` must not exist or it must have been 
 #' previously set up as locker space. See [setup_locker()] for details.
 #' 
+#' @inheritParams setup_locker
 #' @param x A `file_stream` object.
 #' @param where The new location. 
 #' @param initialize If `TRUE`, then the `where` directory is passed to a call
@@ -302,13 +303,13 @@ format_stream <- function(x, type = c("fst", "feather", "qs", "rds"),
 #'          [file_set()]
 #' 
 #' @export
-locate_stream <- function(x, where, initialize = FALSE) {
+locate_stream <- function(x, where, initialize = FALSE, ask = FALSE) {
   clx <- class(x)
   if(!is.file_stream(x)) {
     stop("`x` must be a file_stream object.")  
   }
   if(isTRUE(initialize)) {
-    reset_locker(where)  
+    reset_locker(where, ask = ask)  
   }
   ans <- lapply(x, re_set_dir, where = where)
   class(ans) <- clx
