@@ -6,6 +6,8 @@ Author: Kyle Baron
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Tools for creating and managing file streams.
 License: GPL (>=2)
+Depends: 
+  R (>= 3.6)
 Imports: fst
 Suggests: testthat, arrow, qs, knitr, rmarkdown, dplyr, mrgsolve
 Encoding: UTF-8

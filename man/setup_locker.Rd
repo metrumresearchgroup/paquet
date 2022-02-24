@@ -21,7 +21,7 @@ contents will require user confirmation via \code{\link[utils:askYesNo]{utils::a
 
 \item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
 locker directory to prevent future resets; note that this is essentially
-a dead end; there is no way to make the locker space writeable using public
+a dead end; there is no way to make the locker space writable using public
 api; use this option if you \strong{really} want to safeguard the output and
 assume complete control over the fate of these files.}
 }

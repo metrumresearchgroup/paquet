@@ -219,7 +219,7 @@ reset_locker <- function(where, pattern = NULL) {
 #' `ask` requirement can be revoked by calling [no_ask_locker()].
 #' @param noreset If `TRUE` then [noreset_locker()] will be called on the 
 #' locker directory to prevent future resets; note that this is essentially 
-#' a dead end; there is no way to make the locker space writeable using public
+#' a dead end; there is no way to make the locker space writable using public
 #' api; use this option if you __really__ want to safeguard the output and 
 #' assume complete control over the fate of these files.
 #' 

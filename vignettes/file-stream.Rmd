@@ -440,12 +440,12 @@ equivalent to calling
 write.csv("my-data.csv")
 ```
 
-And getting an error or asking for confimation if `my-data.csv` exists. The user
+And getting an error or asking for confirmation if `my-data.csv` exists. The user
 is encouraged to understand how `new_stream()` works and how to effectively 
-use the safegards outlined here. Only you can properly safeguard the data; we
+use the safeguards outlined here. Only you can properly safeguard the data; we
 give you the tools and it is up to you to use them.
 
-Several approaches are availabe to secure future or existing files which may 
+Several approaches are available to secure future or existing files which may 
 be stored in locker space:
 
 1. `ask`: set up locker space so that you are asked every time a locker reset
@@ -482,7 +482,7 @@ no_ask_locker("foo/bar")
 ```
 
 
-Please read and udnerstand the documentation for `setup_locker`; if anything is 
+Please read and understand the documentation for `setup_locker`; if anything is 
 not clear, please ask :). 
 
 
@@ -495,7 +495,7 @@ is created
 x <- new_stream(100, locker = "foo/bar", noreset = TRUE)
 ```
 
-This command creates locker space and immediately removokes the abillity to 
+This command creates locker space and immediately revokes the ability to 
 reset the space. You can also take an existing locker space and revoke with 
 
 ```{r, eval = FALSE}

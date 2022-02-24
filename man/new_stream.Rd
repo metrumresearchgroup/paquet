@@ -46,7 +46,7 @@ contents will require user confirmation via \code{\link[utils:askYesNo]{utils::a
 
 \item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
 locker directory to prevent future resets; note that this is essentially
-a dead end; there is no way to make the locker space writeable using public
+a dead end; there is no way to make the locker space writable using public
 api; use this option if you \strong{really} want to safeguard the output and
 assume complete control over the fate of these files.}
 
@@ -84,7 +84,7 @@ space. Be sure to \strong{consider using these options} to prevent accidentally
 resetting the locker space.
 
 For the \code{data.frame} method, the data are chunked into a list by columns
-listed in \code{cols}. Ideally, this is a singlel column that operates as
+listed in \code{cols}. Ideally, this is a single column that operates as
 a unique \code{ID} across the data set and is used by \code{\link[=chunk_by_id]{chunk_by_id()}} to
 form the chunks. Alternatively, \code{cols} can be multiple column names which
 are pasted together to form a unique \code{ID} that is used for splitting
