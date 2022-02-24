@@ -41,13 +41,22 @@ LOCKER003:
     As a user, I want to mark a locker space to be ineligible for reset. 
   tests: 
   - PQT-LOCK-004
+  - PQT-LOCK-005
   ProductRisk: low
 LOCKER004:
   name: Version locker
   description: >
     As a user, I want to create a backup version of a locker space. 
   tests: 
-  - PQT-LOCK-005
+  - PQT-LOCK-006
+  ProductRisk: low
+LOCKER005:
+  name: Ask before reset
+  description: > 
+    As a user, I want to paquet to optionally require user confirmation prior
+    to resetting a locker space.
+  tests:
+    - PQT-LOCK-007
   ProductRisk: low
 
 # FILE STREAMS -----

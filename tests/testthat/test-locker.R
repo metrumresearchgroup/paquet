@@ -76,3 +76,13 @@ test_that("version a locker [PQT-LOCK-006]", {
   x <- version_locker(locker, version = "v33", overwrite = TRUE, noreset = TRUE)
   expect_false(paquet:::is_locker_dir(x))
 })
+
+test_that("ask before reset [PQT-LOCK-007]", {
+  skip_if(interactive())
+  locker <- temp_ds("foo")  
+  if(dir.exists(locker)) unlink(locker, recursive = TRUE)
+  x <- new_stream(10, locker = locker, ask = TRUE)
+  ans <- try(x <- capture.output(new_stream(10, locker = locker)), silent=TRUE)
+  expect_is(ans, "try-error")
+  expect_equal(ans[1], "Error : User declined to reset the locker; stopping.\n")
+})

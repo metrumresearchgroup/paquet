@@ -486,10 +486,8 @@ You can remove the ask requirement with
 no_ask_locker("foo/bar")
 ```
 
-
 Please read and understand the documentation for `setup_locker`; if anything is 
 not clear, please ask :). 
-
 
 ### No Reset
 
