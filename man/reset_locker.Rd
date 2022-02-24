@@ -4,16 +4,13 @@
 \alias{reset_locker}
 \title{Initialize the locker directory}
 \usage{
-reset_locker(where, pattern = NULL, ask = FALSE)
+reset_locker(where, pattern = NULL)
 }
 \arguments{
 \item{where}{The full path to the locker.}
 
 \item{pattern}{A regular expression for finding files to clear from the
 locker directory.}
-
-\item{ask}{If \code{TRUE}, then user will be asked to confirm prior to resetting
-the locker space; the default is \code{FALSE}.}
 }
 \description{
 This function is called by \code{\link[=setup_locker]{setup_locker()}} to initialize and
@@ -22,10 +19,6 @@ expected that the locker space is created once and then repeatedly
 reset and simulations are run and re-run.
 }
 \details{
-The user is encouraged to \strong{read the documentation} and understand the \code{ask}
-argument. This may be an important tool for you to use to ensure the safety
-of outputs stored in locker space.
-
 For the locker space to be initialized, the \code{where} directory must not
 exist; if it exists, there will be an error. It is also an error for
 \code{where} to exist and not contain a particular hidden locker file name

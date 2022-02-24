@@ -1,7 +1,9 @@
-
 locker_tag <- function(locker) {
   basename(locker)
 }
+
+.locker_file_name <- ".paquet-locker-dir" 
+.locker_ask_name <- ".paquet-locker-ask"
 
 #' Check if a directory is dedicated locker space
 #' 
@@ -12,9 +14,32 @@ is_locker_dir <- function(where) {
   file.exists(file.path(where, .locker_file_name))  
 }
 
-.locker_file_name <- ".mrgsim-parallel-locker-dir" 
+#' Find out if we need to ask before resetting
+#' 
+#' @param where The locker location; a directory name.
+#' 
+#' @details
+#' The implementation right now is to keep a hidden file that indicates if we
+#' should ask first or not. This function checks if that file exists. This may
+#' be changed in the future if we decide we want additional meta data to be 
+#' stored for the locker space.
+#' 
+#' @return Logical indicating if we need to ask first.
+#' @keywords internal
+#' @noRd
+ask_first_locker <- function(where) {
+  file.exists(file.path(where, .locker_ask_name))  
+}
 
-ok_to_clear_locker <- function(ask) {
+#' Ask if it is ok to reset the locker
+#' 
+#' @param where The locker space.
+#' 
+#' @return Error if ask is required and user declines; otherwise `TRUE`.
+#' @keywords internal
+#' @noRd
+ask_to_clear_locker <- function(where) {
+  ask <- ask_first_locker(where)
   if(isTRUE(ask)) {
     question <- "Resetting locker and removing all files; Are you sure?"
     ans <- askYesNo(question, default = FALSE)
@@ -22,19 +47,83 @@ ok_to_clear_locker <- function(ask) {
       stop("User declined to reset the locker; stopping.", call. = FALSE)  
     }
   }
+  return(invisible(TRUE))
+}
+
+#' Manage ask status for a locker space
+#' 
+#' Use `require_ask_locker` to place a hidden file which will require user
+#' confirmation every time a locker reset attempt is made. Use `no_ask_locker`
+#' to remove that file so that the user will no longer be asked.
+#' 
+#' @param where The locker directory.
+#' 
+#' @details
+#' An error will be generated if `where` isn't already a valid locker space.
+#' 
+#' @return 
+#' Invisible `NULL`.
+#' 
+#' @examples
+#' dir <- file.path(tempdir(), "my-locker")
+#' reset_locker(dir)
+#' require_ask_locker(dir)
+#' list.files(dir)
+#' 
+#' no_ask_locker(dir)
+#' list.files(dir)
+#' 
+#' @export
+require_ask_locker <- function(where) {
+  if(!is_locker_dir(where)) {
+    stop("`where` does not appear to be a locker space.")  
+  }
+  ask_path <- file.path(where, .locker_ask_name)
+  cat(file = ask_path, "#")
+  return(invisible(NULL))
+}
+#' @rdname require_ask_locker
+#' @export
+no_ask_locker <- function(where) {
+  if(!is_locker_dir(where)) {
+    stop("`where` does not appear to be a locker space.")  
+  }
+  ask_path <- file.path(where, .locker_ask_name)
+  if(file.exists(ask_path)) {
+    file.remove(ask_path)  
+  }
   return(invisible(NULL))
 }
 
-clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
-  if(!file.exists(locker_path)) {
+#' Test that the locker location is valid
+#' 
+#' @param where The candidate locker directory.
+#' @return Error if the space is not valid locker; `TRUE` otherwise.
+#' @keywords internal
+#' @noRd
+validate_dir_locker <- function(where) {
+  target <- file.path(where, .locker_file_name)
+  if(!file.exists(target)) {
     msg <- c(
       "The dataset directory exists, but doesn't appear to be a valid ",
       "locker location; please manually remove the folder or specify a new ",
       "folder and try again."
     )
     stop(msg)
-  }
-  ok_to_clear_locker(ask)
+  }  
+  return(invisible(TRUE))
+}
+
+#' Clears the locker space 
+#' 
+#' @param where The locker directory.
+#' @param pattern A regular expression for selecting files to clear.
+#' 
+#' @details
+#' Because this actually clears files, we validate here to make sure this
+#' isn't called by accident on the wrong directory.
+clear_locker <- function(where, pattern) {
+  validate_dir_locker(where)
   if(!is.character(pattern)) {
     pattern <- "\\.(fst|feather|csv|qs|rds|ext)$"
   } 
@@ -62,9 +151,6 @@ clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
 #' reset and simulations are run and re-run. 
 #' 
 #' @details
-#' The user is encouraged to __read the documentation__ and understand the `ask` 
-#' argument. This may be an important tool for you to use to ensure the safety 
-#' of outputs stored in locker space. 
 #' 
 #' For the locker space to be initialized, the `where` directory must not 
 #' exist; if it exists, there will be an error. It is also an error for 
@@ -78,20 +164,18 @@ clear_locker <- function(where, locker_path, pattern, ask = FALSE) {
 #' @param where The full path to the locker. 
 #' @param pattern A regular expression for finding files to clear from the 
 #' locker directory.
-#' @param ask If `TRUE`, then user will be asked to confirm prior to resetting
-#' the locker space; the default is `FALSE`.
 #' 
 #' @seealso [setup_locker()], [noreset_locker()], [version_locker()]
 #' 
 #' @export
-reset_locker <- function(where, pattern = NULL, ask = FALSE) {
-  locker_file <- .locker_file_name
-  locker_path <- file.path(where, locker_file)
+reset_locker <- function(where, pattern = NULL) {
+  ask_to_clear_locker(where)
   if(dir.exists(where)) {
-    clear_locker(where, locker_path, pattern, ask = ask)
+    clear_locker(where, pattern)
   } else {
     dir.create(where, recursive = TRUE)
   }
+  locker_path <- file.path(where, .locker_file_name)
   cat(file = locker_path, "#")
   return(invisible(NULL))
 }
@@ -151,7 +235,10 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
   if(!dir.exists(where)) {
     dir.create(where, recursive = TRUE)
   }
-  reset_locker(output_folder, ask = ask)
+  reset_locker(output_folder)
+  if(isTRUE(ask)) {
+    require_ask_locker(output_folder)
+  }
   if(isTRUE(noreset)) {
     message("Making the locker non-resettable.")
     noreset_locker(output_folder)

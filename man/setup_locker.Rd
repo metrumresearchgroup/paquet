@@ -14,9 +14,6 @@ results.}
 exist the first time the locker is set up and \strong{will be deleted} and
 re-created each time it is used to store output from a new simulation run.}
 
-\item{ask}{If \code{TRUE}, then user will be asked to confirm prior to resetting
-the locker space; the default is \code{FALSE}.}
-
 \item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
 locker directory to prevent future resets.}
 }
