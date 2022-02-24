@@ -14,7 +14,6 @@ vignette: >
 ---
 
 
-
 # Introduction 
 
 File streams are objects you can create to help in organizing larger simulations
@@ -196,7 +195,7 @@ head(sims[[8]])
 `paquet` provides a helper function for reading in a set 
 of `fst` files
 
-```{r}
+```{r, eval = FALSE}
 sims <- internalize_fst(locker)
 str(sims)
 ```
