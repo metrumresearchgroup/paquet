@@ -440,10 +440,15 @@ equivalent to calling
 write.csv("my-data.csv")
 ```
 
-And getting an error or asking for confirmation if `my-data.csv` exists. The user
-is encouraged to understand how `new_stream()` works and how to effectively 
+And getting an error or asking for confirmation if `my-data.csv` exists. The 
+user is encouraged to understand how `new_stream()` works and how to effectively 
 use the safeguards outlined here. Only you can properly safeguard the data; we
-give you the tools and it is up to you to use them.
+give you the tools and it is up to you to use them. If you do choose to use
+these tools, you are responsible for all intended and un-intended consequences. 
+The safety tools are only in place to prevent accidental removal of files in 
+the locker space and there is no guarantee that the locker space will at any 
+point only contain the files that you intended to retain; you own that 
+responsibility when you opt into these tools.
 
 Several approaches are available to secure future or existing files which may 
 be stored in locker space:
