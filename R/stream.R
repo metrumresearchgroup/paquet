@@ -116,7 +116,6 @@ is.stream_format <- format_is_set
 #' are pasted together to form a unique `ID` that is used for splitting 
 #' via [chunk_by_cols()].
 #'  
-#' @inheritParams reset_locker 
 #' @inheritParams setup_locker
 #' @param x A list or vector to template the stream; for the `numeric` method, 
 #' passing a single number will fill `x` with a sequence of that length.
@@ -293,7 +292,7 @@ format_stream <- function(x, type = c("fst", "feather", "qs", "rds"),
 #' @param where The new location. 
 #' @param initialize If `TRUE`, then the `where` directory is passed to a call
 #' to [reset_locker()].
-#' 
+
 #' @examples
 #' x <- new_stream(5)
 #' x <- locate_stream(x, file.path(tempdir(), "foo"))
@@ -309,7 +308,8 @@ locate_stream <- function(x, where, initialize = FALSE, ask = FALSE) {
     stop("`x` must be a file_stream object.")  
   }
   if(isTRUE(initialize)) {
-    reset_locker(where, ask = ask)  
+    reset_locker(where)  
+    if(isTRUE(ask)) require_ask_locker(where)
   }
   ans <- lapply(x, re_set_dir, where = where)
   class(ans) <- clx

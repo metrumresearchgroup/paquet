@@ -13,6 +13,11 @@ locate_stream(x, where, initialize = FALSE, ask = FALSE)
 
 \item{initialize}{If \code{TRUE}, then the \code{where} directory is passed to a call
 to \code{\link[=reset_locker]{reset_locker()}}.}
+
+\item{ask}{If \code{TRUE}, then \code{\link[=require_ask_locker]{require_ask_locker()}} will be called on the
+locker space; once this is called, all future attempts to reset the locker
+contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
+\code{ask} requirement can be revoked by calling \code{\link[=no_ask_locker]{no_ask_locker()}}.}
 }
 \description{
 Add or update the directory location for items in a \code{file_stream} object.

@@ -19,6 +19,10 @@ expected that the locker space is created once and then repeatedly
 reset and simulations are run and re-run.
 }
 \details{
+If user confirmation for reset was previously requested via \code{\link[=setup_locker]{setup_locker()}}
+or \code{\link[=require_ask_locker]{require_ask_locker()}}, then the user will be asked to confirm prior
+to reset.
+
 For the locker space to be initialized, the \code{where} directory must not
 exist; if it exists, there will be an error. It is also an error for
 \code{where} to exist and not contain a particular hidden locker file name

@@ -14,8 +14,16 @@ results.}
 exist the first time the locker is set up and \strong{will be deleted} and
 re-created each time it is used to store output from a new simulation run.}
 
+\item{ask}{If \code{TRUE}, then \code{\link[=require_ask_locker]{require_ask_locker()}} will be called on the
+locker space; once this is called, all future attempts to reset the locker
+contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
+\code{ask} requirement can be revoked by calling \code{\link[=no_ask_locker]{no_ask_locker()}}.}
+
 \item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
-locker directory to prevent future resets.}
+locker directory to prevent future resets; note that this is essentially
+a dead end; there is no way to make the locker space writeable using public
+api; use this option if you \strong{really} want to safeguard the output and
+assume complete control over the fate of these files.}
 }
 \value{
 The locker location.
@@ -50,5 +58,6 @@ x
 
 }
 \seealso{
-\code{\link[=reset_locker]{reset_locker()}}, \code{\link[=noreset_locker]{noreset_locker()}}, \code{\link[=version_locker]{version_locker()}}
+\code{\link[=reset_locker]{reset_locker()}}, \code{\link[=noreset_locker]{noreset_locker()}}, \code{\link[=version_locker]{version_locker()}},
+\code{\link[=require_ask_locker]{require_ask_locker()}}, \code{\link[=no_ask_locker]{no_ask_locker()}}
 }

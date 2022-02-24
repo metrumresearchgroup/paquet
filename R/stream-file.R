@@ -65,7 +65,6 @@ file_set <- function(n, where = NULL, prefix = NULL, pad = TRUE, sep = "-",
 #' @inheritParams format_stream
 #' @inheritParams new_stream
 #' @inheritParams file_set
-#' @inheritParams reset_locker 
 #' @inheritParams setup_locker
 #' @param n The number of file names to generate; must be a single numeric 
 #' value greater than or equal to 1.

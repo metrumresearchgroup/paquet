@@ -151,6 +151,9 @@ clear_locker <- function(where, pattern) {
 #' reset and simulations are run and re-run. 
 #' 
 #' @details
+#' If user confirmation for reset was previously requested via [setup_locker()]
+#' or [require_ask_locker()], then the user will be asked to confirm prior
+#' to reset.
 #' 
 #' For the locker space to be initialized, the `where` directory must not 
 #' exist; if it exists, there will be an error. It is also an error for 
@@ -205,14 +208,20 @@ reset_locker <- function(where, pattern = NULL) {
 #' need to be preserved. You can call [noreset_locker()] on that directory
 #' to prevent future resets. 
 #' 
-#' @inheritParams reset_locker
 #' @param where The directory that contains tagged directories of run 
 #' results.
 #' @param tag The name of a folder under `where`; this directory must not 
 #' exist the first time the locker is set up and __will be deleted__ and 
 #' re-created each time it is used to store output from a new simulation run.
+#' @param ask If `TRUE`, then [require_ask_locker()] will be called on the 
+#' locker space; once this is called, all future attempts to reset the locker
+#' contents will require user confirmation via [utils::askYesNo()]; the 
+#' `ask` requirement can be revoked by calling [no_ask_locker()].
 #' @param noreset If `TRUE` then [noreset_locker()] will be called on the 
-#' locker directory to prevent future resets.
+#' locker directory to prevent future resets; note that this is essentially 
+#' a dead end; there is no way to make the locker space writeable using public
+#' api; use this option if you __really__ want to safeguard the output and 
+#' assume complete control over the fate of these files.
 #' 
 #' @return
 #' The locker location.
@@ -221,7 +230,9 @@ reset_locker <- function(where, pattern = NULL) {
 #' x <- setup_locker(tempdir(), tag = "my-sims")
 #' x
 #' 
-#' @seealso [reset_locker()], [noreset_locker()], [version_locker()]
+#' @seealso 
+#' [reset_locker()], [noreset_locker()], [version_locker()], 
+#' [require_ask_locker()], [no_ask_locker()]
 #' 
 #' @export
 setup_locker <- function(where, tag = locker_tag(where), ask = FALSE, 
