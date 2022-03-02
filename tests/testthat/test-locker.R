@@ -74,7 +74,8 @@ test_that("version a locker [PQT-LOCK-006]", {
   x <- version_locker(locker, version = "v33", overwrite = TRUE)
   expect_true(dir.exists(x))
   x <- version_locker(locker, version = "v33", overwrite = TRUE, noreset = TRUE)
-  expect_false(paquet:::is_locker_dir(x))
+  expect_true(paquet:::is_locker_dir(x))
+  expect_true(paquet:::marked_noreset_locker(x))
 })
 
 test_that("ask before reset [PQT-LOCK-007]", {

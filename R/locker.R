@@ -4,6 +4,7 @@ locker_tag <- function(locker) {
 
 .locker_file_name <- ".paquet-locker-dir" 
 .locker_ask_name <- ".paquet-locker-ask"
+.locker_noreset_name <- ".paquet-locker-noreset"
 
 #' Check if a directory is dedicated locker space
 #' 
@@ -27,7 +28,7 @@ is_locker_dir <- function(where) {
 #' @return Logical indicating if we need to ask first.
 #' @keywords internal
 #' @noRd
-ask_first_locker <- function(where) {
+marked_ask_locker <- function(where) {
   file.exists(file.path(where, .locker_ask_name))  
 }
 
@@ -39,7 +40,7 @@ ask_first_locker <- function(where) {
 #' @keywords internal
 #' @noRd
 ask_to_clear_locker <- function(where) {
-  ask <- ask_first_locker(where)
+  ask <- marked_ask_locker(where)
   if(isTRUE(ask)) {
     question <- "Resetting locker and removing all files; Are you sure?"
     ans <- askYesNo(question, default = FALSE)
@@ -97,6 +98,9 @@ no_ask_locker <- function(where) {
 
 #' Test that the locker location is valid
 #' 
+#' @details
+#' The location is valid if `.locker_file_name` exists in that directory.
+#' 
 #' @param where The candidate locker directory.
 #' @return Error if the space is not valid locker; `TRUE` otherwise.
 #' @keywords internal
@@ -116,12 +120,16 @@ validate_dir_locker <- function(where) {
 
 #' Clears the locker space 
 #' 
-#' @param where The locker directory.
-#' @param pattern A regular expression for selecting files to clear.
-#' 
 #' @details
 #' Because this actually clears files, we validate here to make sure this
 #' isn't called by accident on the wrong directory.
+#' 
+#' @param where The locker directory.
+#' @param pattern A regular expression for selecting files to clear.
+#' 
+#' 
+#' @keywords internal
+#' @noRd
 clear_locker <- function(where, pattern) {
   validate_dir_locker(where)
   if(!is.character(pattern)) {
@@ -172,14 +180,14 @@ clear_locker <- function(where, pattern) {
 #' 
 #' @export
 reset_locker <- function(where, pattern = NULL) {
-  ask_to_clear_locker(where)
+  stopifnot_resettable_locker(where)
   if(dir.exists(where)) {
     clear_locker(where, pattern)
   } else {
     dir.create(where, recursive = TRUE)
   }
   locker_path <- file.path(where, .locker_file_name)
-  cat(file = locker_path, "#")
+  cat(file = locker_path, "#\n")
   return(invisible(NULL))
 }
 
@@ -245,6 +253,11 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
   }
   if(!dir.exists(where)) {
     dir.create(where, recursive = TRUE)
+  } else {
+    if(isTRUE(ask)) {
+      require_ask_locker(output_folder)
+      ask <- FALSE
+    }  
   }
   reset_locker(output_folder)
   if(isTRUE(ask)) {
@@ -259,14 +272,14 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
 
 #' Prohibit a locker space from being reset
 #' 
-#' This function removes the the hidden locker file which designates a directory
+#' This function designates a locker directory to be non-resettable.
 #' as a locker. Once the locker is modified this way, it cannot be reset again 
 #' by calling [setup_locker()] or [new_stream()]. 
 #' 
 #' @param where The locker location. 
 #' 
 #' @return
-#' A logical value indicating if write ability was successfully revoked. 
+#' Logical indicating if write ability was successfully revoked. 
 #' 
 #' @seealso [setup_locker()], [reset_locker()], [version_locker()]
 #' 
@@ -276,8 +289,48 @@ noreset_locker <- function(where) {
   if(!file.exists(locker_file)) {
     stop("`where` does not appear to be a locker.")  
   }
-  ans <- file.remove(locker_file)
+  file <- file.path(where, .locker_noreset_name)
+  cat(file = file, "#\n")
+  return(invisible(file.exists(file)))
+}
+
+#' Remove noreset status on a locker
+#' 
+#' @param where The locker location.
+#' @return 
+#' Logical indicating that noreset status has been removed.
+#' @export
+ok_reset_locker <- function(where) {
+  validate_dir_locker(where)
+  file <- file.path(where, .locker_noreset_name)
+  ans <- TRUE
+  if(file.exists(file)) {
+    message("Making the locker resettable.")
+    ans <- file.remove(file)
+  }
   return(invisible(ans))
+}
+
+#' Find if a locker is resettable
+#' 
+#' @details
+#' 1. It has not been marked non-resettable.
+#' 2. If ask is required, user has confirmed.
+#' 
+#' @param where The locker location.
+#' @return Logical indicating if it is noreset
+#' @noRd
+stopifnot_resettable_locker <- function(where) {
+  marked_noreset <- marked_noreset_locker(where)
+  if(marked_noreset) {
+    stop("The locker space has been marked noreset.")  
+  }
+  ask_to_clear_locker(where)
+  return(invisible(TRUE))
+}
+
+marked_noreset_locker <- function(where) {
+  file.exists(file.path(where, .locker_noreset_name))  
 }
 
 #' Version locker contents

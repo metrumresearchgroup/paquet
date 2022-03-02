@@ -10,10 +10,10 @@ noreset_locker(where)
 \item{where}{The locker location.}
 }
 \value{
-A logical value indicating if write ability was successfully revoked.
+Logical indicating if write ability was successfully revoked.
 }
 \description{
-This function removes the the hidden locker file which designates a directory
+This function designates a locker directory to be non-resettable.
 as a locker. Once the locker is modified this way, it cannot be reset again
 by calling \code{\link[=setup_locker]{setup_locker()}} or \code{\link[=new_stream]{new_stream()}}.
 }
