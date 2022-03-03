@@ -440,7 +440,7 @@ equivalent to calling
 write.csv("my-data.csv")
 ```
 
-And getting an error or asking for confirmation if `my-data.csv` exists. The 
+and getting an error or asking for confirmation if `my-data.csv` exists. The 
 user is encouraged to understand how `new_stream()` works and how to effectively 
 use the safeguards outlined here. Only you can properly safeguard the data; we
 give you the tools and it is up to you to use them. If you do choose to use
@@ -448,7 +448,7 @@ these tools, you are responsible for all intended and un-intended consequences.
 The safety tools are only in place to prevent accidental removal of files in 
 the locker space and there is no guarantee that the locker space will at any 
 point only contain the files that you intended to retain; you own that 
-responsibility when you opt into these tools.
+responsibility when you opt in to these tools.
 
 Several approaches are available to secure future or existing files which may 
 be stored in locker space:
@@ -477,17 +477,17 @@ You can also convert an existing locker space so that you are asked every
 time locker reset is attempted using
 
 ```{r, eval = FALSE}
-require_ask_locker("foo/bar")
+config_locker("foo/bar", ask = TRUE)
 ```
 
 You can remove the ask requirement with
 
 ```{r, eval = FALSE}
-no_ask_locker("foo/bar")
+config_locker("foo/bar", ask = FALSE)
 ```
 
 Please read and understand the documentation for `setup_locker`; if anything is 
-not clear, please ask :). 
+not clear, please ask. 
 
 ### No Reset
 
@@ -502,15 +502,14 @@ This command creates locker space and immediately revokes the ability to
 reset the space. You can also take an existing locker space and revoke with 
 
 ```{r, eval = FALSE}
-noreset_locker("foo/bar")
+config_locker("foo/bar", noreset = TRUE)
 ```
 
-One this is called, the space is no longer recognized as a storage locker. This
-is really a dead end in the `paquet` workflow and is only recommended if you 
-want to take manual control over whether a locker can be reset or not. So, 
-while this removes a lot of the convenience of `paquet` / `locker`, it also 
-adds a lot of safety. Use this if you want to be safe! If you accidentally blow
-away simulations in a locker, then you will know to use this option next time.
+One this is called, the space can no longer be reset. To restore reset-ability:
+
+```{r, eval = FALSE}
+config_locker("foo/bar", noreset = FALSE)
+```
 
 
 ### Versions
