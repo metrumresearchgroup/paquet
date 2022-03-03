@@ -33,13 +33,16 @@ test_that("retire a locker [PQT-LOCK-004]", {
   x <- new_stream(5, locker = locker)
   x <- new_stream(5, locker = locker)
   x <- new_stream(5, locker = locker)
-  expect_true(noreset_locker(locker))
+  ans <- config_locker(locker, noreset = TRUE)
+  expect_true(ans$noreset)
   cat("foo", file = file.path(locker, 'foo.fst'))
   expect_error(
     new_stream(5, locker = locker), 
-    regexp = "but doesn't appear to be a valid locker"
+    regexp = "The locker space has been marked noreset"
   )
   expect_equal(list.files(locker), "foo.fst")
+  ans <- config_locker(locker, noreset = FALSE)
+  expect_false(paquet:::marked_noreset_locker(locker))
 })
 
 test_that("retire a locker on create [PQT-LOCK-005]", {
@@ -52,7 +55,7 @@ test_that("retire a locker on create [PQT-LOCK-005]", {
   cat("foo", file = file.path(locker, 'foo.fst'))
   expect_error(
     new_stream(5, locker = locker), 
-    regexp = "but doesn't appear to be a valid locker"
+    regexp = "The locker space has been marked noreset"
   )
   expect_equal(list.files(locker), "foo.fst")
 })
@@ -86,4 +89,10 @@ test_that("ask before reset [PQT-LOCK-007]", {
   ans <- try(x <- capture.output(new_stream(10, locker = locker)), silent=TRUE)
   expect_is(ans, "try-error")
   expect_equal(ans[1], "Error : User declined to reset the locker; stopping.\n")
+  
+  ans <- config_locker(locker, ask = FALSE)
+  expect_false(paquet:::marked_ask_locker(locker))
+  ans <- config_locker(locker, ask = TRUE)
+  expect_true(paquet:::marked_ask_locker(locker))
+
 })

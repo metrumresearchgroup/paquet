@@ -6,6 +6,34 @@ locker_tag <- function(locker) {
 .locker_ask_name <- ".paquet-locker-ask"
 .locker_noreset_name <- ".paquet-locker-noreset"
 
+#' Configure a locker directory
+#' 
+#' @param where The locker location.
+#' @param ask Logical; toggles whether or not the user will be asked to confirm
+#' prior to resetting a locker space.
+#' @param noreset Logical; toggles whether or not a locker space is resettable.
+
+#' @export
+config_locker <- function(where, ask = NULL, noreset = NULL) {
+  if(isTRUE(ask)) {
+    require_ask_locker(where)
+  }
+  if(isFALSE(ask)) {
+    no_ask_locker(where)  
+  }
+  if(isTRUE(noreset)) {
+    noreset_locker(where)  
+  }
+  if(isFALSE(noreset)) {
+    ok_reset_locker(where)  
+  }
+  ans <- list(
+    ask = marked_ask_locker(where),
+    noreset = marked_noreset_locker(where)
+  )
+  return(invisible(ans))
+}
+
 #' Check if a directory is dedicated locker space
 #' 
 #' @param where The locker location.
@@ -31,10 +59,14 @@ is_locker_dir <- function(where) {
 marked_ask_locker <- function(where) {
   file.exists(file.path(where, .locker_ask_name))  
 }
+marked_noreset_locker <- function(where) {
+  file.exists(file.path(where, .locker_noreset_name))  
+}
+
 
 #' Ask if it is ok to reset the locker
 #' 
-#' @param where The locker space.
+#' @param where The locker location.
 #' 
 #' @return Error if ask is required and user declines; otherwise `TRUE`.
 #' @keywords internal
@@ -73,8 +105,8 @@ ask_to_clear_locker <- function(where) {
 #' 
 #' no_ask_locker(dir)
 #' list.files(dir)
-#' 
-#' @export
+#' @keywords internal
+#' @noRd
 require_ask_locker <- function(where) {
   if(!is_locker_dir(where)) {
     stop("`where` does not appear to be a locker space.")  
@@ -83,8 +115,7 @@ require_ask_locker <- function(where) {
   cat(file = ask_path, "#")
   return(invisible(NULL))
 }
-#' @rdname require_ask_locker
-#' @export
+#' @noRd
 no_ask_locker <- function(where) {
   if(!is_locker_dir(where)) {
     stop("`where` does not appear to be a locker space.")  
@@ -160,7 +191,7 @@ clear_locker <- function(where, pattern) {
 #' 
 #' @details
 #' If user confirmation for reset was previously requested via [setup_locker()]
-#' or [require_ask_locker()], then the user will be asked to confirm prior
+#' or [config_locker()], then the user will be asked to confirm prior
 #' to reset.
 #' 
 #' For the locker space to be initialized, the `where` directory must not 
@@ -176,7 +207,7 @@ clear_locker <- function(where, pattern) {
 #' @param pattern A regular expression for finding files to clear from the 
 #' locker directory.
 #' 
-#' @seealso [setup_locker()], [noreset_locker()], [version_locker()]
+#' @seealso [setup_locker()], [config_locker()], [version_locker()]
 #' 
 #' @export
 reset_locker <- function(where, pattern = NULL) {
@@ -213,20 +244,21 @@ reset_locker <- function(where, pattern = NULL) {
 #' 
 #' When recreating the `tag` directory, it will be unlinked and created new.
 #' To not try to set up a locker directory that already contains outputs that 
-#' need to be preserved. You can call [noreset_locker()] on that directory
-#' to prevent future resets. 
+#' need to be preserved. You can call [config_locker()] on that directory
+#' with `noreset = TRUE` to prevent future resets. 
 #' 
 #' @param where The directory that contains tagged directories of run 
 #' results.
 #' @param tag The name of a folder under `where`; this directory must not 
 #' exist the first time the locker is set up and __will be deleted__ and 
 #' re-created each time it is used to store output from a new simulation run.
-#' @param ask If `TRUE`, then [require_ask_locker()] will be called on the 
+#' @param ask If `TRUE`, then [config_locker()] will be called on the 
 #' locker space; once this is called, all future attempts to reset the locker
 #' contents will require user confirmation via [utils::askYesNo()]; the 
-#' `ask` requirement can be revoked by calling [no_ask_locker()].
-#' @param noreset If `TRUE` then [noreset_locker()] will be called on the 
-#' locker directory to prevent future resets; note that this is essentially 
+#' `ask` requirement can be revoked by calling [config_locker()].
+#' @param noreset If `TRUE` then [config_locker()] will be called on the 
+#' locker directory with `noreset = TRUE` to prevent future resets; note that 
+#' this is essentially 
 #' a dead end; there is no way to make the locker space writable using public
 #' api; use this option if you __really__ want to safeguard the output and 
 #' assume complete control over the fate of these files.
@@ -239,8 +271,7 @@ reset_locker <- function(where, pattern = NULL) {
 #' x
 #' 
 #' @seealso 
-#' [reset_locker()], [noreset_locker()], [version_locker()], 
-#' [require_ask_locker()], [no_ask_locker()]
+#' [reset_locker()],  [version_locker()], [config_locker()]
 #' 
 #' @export
 setup_locker <- function(where, tag = locker_tag(where), ask = FALSE, 
@@ -253,11 +284,11 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
   }
   if(!dir.exists(where)) {
     dir.create(where, recursive = TRUE)
-  } else {
-    if(isTRUE(ask)) {
-      require_ask_locker(output_folder)
-      ask <- FALSE
-    }  
+  } 
+  existing <- dir.exists(output_folder)
+  if(isTRUE(ask) && existing) {
+    require_ask_locker(output_folder)
+    ask <- FALSE
   }
   reset_locker(output_folder)
   if(isTRUE(ask)) {
@@ -265,7 +296,7 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
   }
   if(isTRUE(noreset)) {
     message("Making the locker non-resettable.")
-    noreset_locker(output_folder)
+    config_locker(output_folder, noreset = TRUE)
   }
   return(invisible(output_folder))
 }
@@ -283,7 +314,7 @@ setup_locker <- function(where, tag = locker_tag(where), ask = FALSE,
 #' 
 #' @seealso [setup_locker()], [reset_locker()], [version_locker()]
 #' 
-#' @export
+#' @noRd
 noreset_locker <- function(where) {
   locker_file <- file.path(where, .locker_file_name)
   if(!file.exists(locker_file)) {
@@ -299,7 +330,8 @@ noreset_locker <- function(where) {
 #' @param where The locker location.
 #' @return 
 #' Logical indicating that noreset status has been removed.
-#' @export
+#' @keywords internal
+#' @noRd
 ok_reset_locker <- function(where) {
   validate_dir_locker(where)
   file <- file.path(where, .locker_noreset_name)
@@ -319,18 +351,15 @@ ok_reset_locker <- function(where) {
 #' 
 #' @param where The locker location.
 #' @return Logical indicating if it is noreset
+#' @keywords internal
 #' @noRd
 stopifnot_resettable_locker <- function(where) {
   marked_noreset <- marked_noreset_locker(where)
   if(marked_noreset) {
-    stop("The locker space has been marked noreset.")  
+    stop("The locker space has been marked noreset; stopping.")  
   }
   ask_to_clear_locker(where)
   return(invisible(TRUE))
-}
-
-marked_noreset_locker <- function(where) {
-  file.exists(file.path(where, .locker_noreset_name))  
 }
 
 #' Version locker contents
@@ -340,7 +369,8 @@ marked_noreset_locker <- function(where) {
 #' locker contents.
 #' @param overwrite If `TRUE`, the new location will be removed with [unlink()]
 #' if it exists.
-#' @param noreset If `TRUE`, [noreset_locker()] is called **on the new version**.
+#' @param noreset If `TRUE`, [config_locker()] is called **on the new version**
+#' to mark the space `noreset`.
 #' 
 #' @return
 #' A logical value indicating whether or not all files were successfully copied
@@ -365,7 +395,7 @@ marked_noreset_locker <- function(where) {
 #' 
 #' list.files(y, all.files = TRUE)
 #' 
-#' @seealso [reset_locker()], [noreset_locker()], [setup_locker()]
+#' @seealso [reset_locker()], [setup_locker()]
 #' @export
 version_locker <- function(where, version = "save", overwrite = FALSE, 
                            noreset = FALSE) {
@@ -384,6 +414,6 @@ version_locker <- function(where, version = "save", overwrite = FALSE,
   files <- list.files(where, full.names = TRUE, all.files = TRUE, no..=TRUE)
   ans <- file.copy(files, saved)
   if(!all(ans)) stop("There was a problem copying files to new version.")
-  if(isTRUE(noreset)) noreset_locker(saved)
+  if(isTRUE(noreset)) config_locker(saved, noreset = TRUE)
   return(invisible(saved))
 }

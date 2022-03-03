@@ -39,13 +39,14 @@ directory.}
 
 \item{format}{Passed to \code{\link[=format_stream]{format_stream()}}.}
 
-\item{ask}{If \code{TRUE}, then \code{\link[=require_ask_locker]{require_ask_locker()}} will be called on the
+\item{ask}{If \code{TRUE}, then \code{\link[=config_locker]{config_locker()}} will be called on the
 locker space; once this is called, all future attempts to reset the locker
 contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
-\code{ask} requirement can be revoked by calling \code{\link[=no_ask_locker]{no_ask_locker()}}.}
+\code{ask} requirement can be revoked by calling \code{\link[=config_locker]{config_locker()}}.}
 
-\item{noreset}{If \code{TRUE} then \code{\link[=noreset_locker]{noreset_locker()}} will be called on the
-locker directory to prevent future resets; note that this is essentially
+\item{noreset}{If \code{TRUE} then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker directory with \code{noreset = TRUE} to prevent future resets; note that
+this is essentially
 a dead end; there is no way to make the locker space writable using public
 api; use this option if you \strong{really} want to safeguard the output and
 assume complete control over the fate of these files.}

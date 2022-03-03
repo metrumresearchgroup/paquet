@@ -151,7 +151,7 @@ is.stream_format <- format_is_set
 #' format_is_set(x[[2]])
 #' 
 #' @seealso [format_stream()], [locate_stream()], [ext_stream()], [file_stream()], 
-#'          [file_set()]
+#'          [file_set()], [config_locker()]
 #' 
 #' @export
 new_stream <- function(x, ...) UseMethod("new_stream")
@@ -309,7 +309,7 @@ locate_stream <- function(x, where, initialize = FALSE, ask = FALSE) {
   }
   if(isTRUE(initialize)) {
     reset_locker(where)  
-    if(isTRUE(ask)) require_ask_locker(where)
+    if(isTRUE(ask)) config_locker(where, ask = TRUE)
   }
   ans <- lapply(x, re_set_dir, where = where)
   class(ans) <- clx
