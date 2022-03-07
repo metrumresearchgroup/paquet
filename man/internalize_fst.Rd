@@ -5,12 +5,14 @@
 \alias{get_fst}
 \title{Get the contents of an fst file set}
 \usage{
-internalize_fst(path)
+internalize_fst(path, ...)
 
-get_fst(path)
+get_fst(path, ...)
 }
 \arguments{
 \item{path}{The directory to search.}
+
+\item{...}{Other arguments passed to \code{\link[fst:write_fst]{fst::read_fst()}}.}
 }
 \description{
 Get the contents of an fst file set

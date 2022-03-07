@@ -17,12 +17,13 @@ list_fst <- function(path) {
 #' Get the contents of an fst file set
 #' 
 #' @inheritParams head_fst
+#' @param ... Other arguments passed to [fst::read_fst()].
 #' @seealso [list_fst()], [head_fst()]
 #' 
 #' @export
-internalize_fst <- function(path) {
+internalize_fst <- function(path, ...) {
   files <- list_fst(path)
-  lapply(files, read_fst)
+  lapply(files, read_fst, ...)
 }
 #' @export
 #' @rdname internalize_fst
