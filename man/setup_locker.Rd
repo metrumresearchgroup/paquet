@@ -4,7 +4,7 @@
 \alias{setup_locker}
 \title{Set up a data storage locker}
 \usage{
-setup_locker(where, tag = locker_tag(where))
+setup_locker(where, tag = locker_tag(where), ask = FALSE, noreset = FALSE)
 }
 \arguments{
 \item{where}{The directory that contains tagged directories of run
@@ -13,6 +13,18 @@ results.}
 \item{tag}{The name of a folder under \code{where}; this directory must not
 exist the first time the locker is set up and \strong{will be deleted} and
 re-created each time it is used to store output from a new simulation run.}
+
+\item{ask}{If \code{TRUE}, then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker space; once this is called, all future attempts to reset the locker
+contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
+\code{ask} requirement can be revoked by calling \code{\link[=config_locker]{config_locker()}}.}
+
+\item{noreset}{If \code{TRUE} then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker directory with \code{noreset = TRUE} to prevent future resets; note that
+this is essentially
+a dead end; there is no way to make the locker space writable using public
+api; use this option if you \strong{really} want to safeguard the output and
+assume complete control over the fate of these files.}
 }
 \value{
 The locker location.
@@ -26,6 +38,10 @@ function and documentation is provided in order to better communicate how
 the locker works.
 }
 \details{
+The user is encouraged to \strong{read the documentation} and understand the \code{ask}
+and \code{noreset} arguments. These may be important tools for you to use to
+ensure the safety of outputs stored in locker space.
+
 \code{where} must exist when setting up the locker. The directory \code{tag} will be
 created under \code{where} and must not exist except if it had previously been
 set up using \code{setup_locker}. Existing \code{tag} directories will have a
@@ -34,8 +50,8 @@ folders.
 
 When recreating the \code{tag} directory, it will be unlinked and created new.
 To not try to set up a locker directory that already contains outputs that
-need to be preserved. You can call \code{\link[=noreset_locker]{noreset_locker()}} on that directory
-to prevent future resets.
+need to be preserved. You can call \code{\link[=config_locker]{config_locker()}} on that directory
+with \code{noreset = TRUE} to prevent future resets.
 }
 \examples{
 x <- setup_locker(tempdir(), tag = "my-sims")
@@ -43,5 +59,5 @@ x
 
 }
 \seealso{
-\code{\link[=reset_locker]{reset_locker()}}, \code{\link[=noreset_locker]{noreset_locker()}}, \code{\link[=version_locker]{version_locker()}}
+\code{\link[=reset_locker]{reset_locker()}},  \code{\link[=version_locker]{version_locker()}}, \code{\link[=config_locker]{config_locker()}}
 }

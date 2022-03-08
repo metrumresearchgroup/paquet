@@ -81,7 +81,7 @@ test_that("relocate and initialize stream [PQT-STRM-005]", {
   dir.create(dir)
   expect_error( 
     locate_stream(y, where = dir, initialize = TRUE), 
-    regexp="the dataset directory exists, but doesn't appear"
+    regexp="The dataset directory exists, but doesn't appear"
   )
   unlink(dir, recursive = TRUE)
 })

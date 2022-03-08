@@ -14,4 +14,4 @@ man/figures
 docs
 ^.*\.tar\.gz$
 \.drone\.yml
-vignettes
+

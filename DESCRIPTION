@@ -1,13 +1,15 @@
 Package: paquet
 Type: Package
 Title: Paquet
-Version: 0.0.1.9002
+Version: 0.0.1.9004
 Author: Kyle Baron
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
 Description: Tools for creating and managing file streams.
 License: GPL (>=2)
+Depends: 
+  R (>= 3.6)
 Imports: fst
-Suggests: testthat, arrow, qs, knitr, rmarkdown, mrgsolve, dplyr
+Suggests: testthat, arrow, qs, knitr, rmarkdown, dplyr, mrgsolve
 Encoding: UTF-8
 URL: https://github.com/metrumresearchgroup/paquet
 BugReports: https://github.com/metrumresearchgroup/paquet/issues

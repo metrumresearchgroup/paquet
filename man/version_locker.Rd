@@ -15,7 +15,8 @@ locker contents.}
 \item{overwrite}{If \code{TRUE}, the new location will be removed with \code{\link[=unlink]{unlink()}}
 if it exists.}
 
-\item{noreset}{If \code{TRUE}, \code{\link[=noreset_locker]{noreset_locker()}} is called \strong{on the new version}.}
+\item{noreset}{If \code{TRUE}, \code{\link[=config_locker]{config_locker()}} is called \strong{on the new version}
+to mark the space \code{noreset}.}
 }
 \value{
 A logical value indicating whether or not all files were successfully copied
@@ -45,5 +46,5 @@ list.files(y, all.files = TRUE)
 
 }
 \seealso{
-\code{\link[=reset_locker]{reset_locker()}}, \code{\link[=noreset_locker]{noreset_locker()}}, \code{\link[=setup_locker]{setup_locker()}}
+\code{\link[=reset_locker]{reset_locker()}}, \code{\link[=setup_locker]{setup_locker()}}
 }
