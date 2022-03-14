@@ -8,3 +8,4 @@ paquet*.tar.gz
 .RData
 .Ruserdata
 .DS_Store
+docs

@@ -1,20 +1,202 @@
 ---
-title: ""
 output: github_document
 ---
 
-```{r,setup,include=FALSE}
-knitr::opts_chunk$set(comment = '.', message=FALSE, warning = FALSE, 
-                      fig.path="man/figures/README-")
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ".",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
 ```
 
 # paquet
+
 <!-- badges: start -->
 <!-- badges: end -->
 
-## Overview
-Paquets of fun.  
+paquet helps you create and manage file streams for saving large outputs which 
+are created in chunks or packets. 
 
-## More info
+For example, large simulation job might be 
+split up into packets to be processed in parallel. Using paquet, each worker can
+get a unique output file name for saving the result of that packet to a reserved
+space on disk so that large simulation results are not returned to the head 
+node. Results are stored in a way that allows efficient handling with fst 
+file format or feather / arrow data sets.
 
-See [inst/validation/stories.md (on GitHub only)](inst/validation/stories.md) for more details.
+## Installation
+
+You can install the development version of paquet from 
+[GitHub](https://github.com/metrumresearchgroup/paquet) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("metrumresearchgroup/paquet")
+```
+
+## Example 
+
+We will illustrate paquet by doing a simulation with mrgsolve. Let's create an 
+input data set to simulate. 
+
+```{r, message = FALSE, warning = FALSE}
+library(paquet)
+library(dplyr)
+library(mrgsolve)
+
+data <- expand.ev(
+  ID = seq(100), 
+  amt = c(100, 300, 1000), 
+  ii = 24, 
+  addl = 9
+) %>% as_tibble() %>% mutate(dose = amt)
+```
+
+This isn't huge, but we're just illustrating
+```{r}
+data
+```
+
+A workflow might be to create chunks to process in parallel on a worker node. 
+To do this, we'll create a file stream based on chunks of the input data
+
+```{r, message = FALSE}
+fs <- new_stream(data, nchunk = 5, locker = "foo/mrgsolve", format = "feather")
+```
+
+This returns a list of data chunks
+
+```{r}
+fs[[5]]
+```
+
+For example, the 5th chunk will be saved to 
+
+```{r, echo = FALSE}
+fs[[5]]$file
+```
+
+in `feather` format. 
+
+We create a function to generate the outputs and then call `write_stream()` to 
+write the outputs to file
+
+```{r, message = FALSE}
+mod <- modlib("popex")
+
+simulate_chunk <- function(x) {
+  
+  out <- mrgsim_df(mod, data = x$x, carry_out = "dose")  
+  
+  write_stream(x, out)
+  
+  return(x$file)
+}
+
+out <- lapply(fs, simulate_chunk)
+```
+
+Now all of our outputs are safely stored in `feather` format
+
+```{r}
+list.files("foo/mrgsolve")
+```
+
+And we have the file names in `out` since we returned the file names rather than
+the simulated data
+
+```{r}
+out
+```
+
+## Using `arrow` to read paquet outputs
+
+Apache arrow is an advance platform for handling very large data sets. While 
+there is no formal connection between paquet and arrow, paquet has been designed
+to set up output files in a way that makes it easy to access with arrow. 
+
+We used `format = "feather"` in the mrgsolve simulation above and saved the 
+files out to a locker space on disk. We can read these simulations using 
+the `open_dataset()` function provided by arrow
+
+```{r, message = FALSE, warning = FALSE}
+library(arrow)
+
+ds <- open_dataset("foo/mrgsolve", format = "feather")
+
+ds
+```
+
+This doesn't read in the data, but just gets a handle on what is there. Using 
+arrow, we can filter and select the data that we want from the feather files 
+**before** actually reading the files so that we don't have to read data that 
+we don't ultimately want
+
+```{r}
+sims <- 
+  ds %>%
+  filter(dose == 100) %>% 
+  select(ID, time, DV) %>% 
+  as_tibble()
+
+sims
+```
+
+## Using `fst` to save and read outputs
+
+In the previous example, we used the `feather` format to save simulated outputs
+and interacted with the outputs using `arrow::open_dataset()`. We can use the 
+_same_ simulation function and save files to fst format instead
+
+
+```{r}
+fs2 <- new_stream(data, nchunk = 5, format = "fst", locker = "foo/fst-output")
+```
+
+Note we have requested fst formatted outputs and have pointed to a new space 
+on disk. We simulate again using `simulate_chunk`
+
+
+```{r}
+out <- lapply(fs2, simulate_chunk)
+```
+
+Now we _can't_ use arrow to read these files, but we can use fst. paquet
+provides tools for internalizing `fst` outputs
+
+
+```{r}
+sims2 <- internalize_fst("foo/fst-output") %>% bind_rows()
+
+head(sims2)
+```
+
+as well as tooling to process them sequentially. 
+
+```{r, message = FALSE, warning = FALSE}
+library(data.table)
+library(fst)
+
+files <- list_fst("foo/fst-output")
+
+sims3 <- lapply(files, function(file) {
+  
+  result <- read_fst(file, as.data.table = TRUE)
+  
+  result[dose == 100, c("ID", "time", "DV")]
+
+}) %>% rbindlist()
+```
+
+While the fst package is configured to work with `data.table`, it is not 
+required. However, it might be recommended if processing very large outputs.
+
+```{r}
+sims3
+```
+
+
