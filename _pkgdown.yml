@@ -2,3 +2,48 @@ url: ~
 template:
   bootstrap: 5
 
+reference:
+- title: Chunking data frames
+  contents:
+  - chunk_by_cols
+  - chunk_by_id
+  - chunk_by_row
+  - chunk_data_frame
+
+- title: Locker functions
+  contents:
+  - config_locker
+  - setup_locker
+  - reset_locker
+  - version_locker
+  - is_locker_dir
+  - temp_ds
+  
+- title: File stream
+  contents:
+  - new_stream
+  - new_stream.character
+  - new_stream.data.frame
+  - new_stream.list
+  - new_stream.numeric
+  - locate_stream
+  - ext_stream
+  - format_stream
+  - file_stream
+  - file_set
+  
+- title: Write outputs by format
+  contents:
+  - write_stream
+  - write_stream.default
+  - write_stream.stream_format_feather
+  - write_stream.stream_format_fst
+  - write_stream.stream_format_qs
+  - write_stream.stream_format_rds
+  
+- title: Handle fst outputs
+  contents:
+  - get_fst
+  - head_fst
+  - list_fst
+  - internalize_fst

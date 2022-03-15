@@ -21,12 +21,12 @@ knitr::opts_chunk$set(
 paquet helps you create and manage file streams for saving large outputs which 
 are created in chunks or packets. 
 
-For example, large simulation job might be 
-split up into packets to be processed in parallel. Using paquet, each worker can
-get a unique output file name for saving the result of that packet to a reserved
-space on disk so that large simulation results are not returned to the head 
-node. Results are stored in a way that allows efficient handling with fst 
-file format or feather / arrow data sets.
+For example, large simulation job might be split up into packets to be processed 
+in parallel. Using paquet, each worker can get a unique output file name for 
+saving the result of that packet to a reserved space on disk so that large 
+simulation results are not returned to the head node. Results are stored in a 
+way that allows efficient handling with fst file format or feather / arrow 
+data sets.
 
 ## Installation
 
@@ -40,8 +40,14 @@ devtools::install_github("metrumresearchgroup/paquet")
 
 ## Example 
 
-We will illustrate paquet by doing a simulation with mrgsolve. Let's create an 
-input data set to simulate. 
+We will illustrate paquet by doing a simulation with mrgsolve. For a more 
+detailed example, see the File Stream vignette by running this command:
+
+```{r, eval = FALSE}
+vignette("file-stream", package = "paquet")
+```
+
+Let's create an input data set to simulate. 
 
 ```{r, message = FALSE, warning = FALSE}
 library(paquet)
