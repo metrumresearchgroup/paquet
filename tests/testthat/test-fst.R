@@ -2,7 +2,7 @@ library(testthat)
 
 context("test-fst")
 
-test_that("save to fst", {
+test_that("save to fst [PQT-FST-001]", {
   df <- data.frame(a = seq(26), b = letters)
   data <- list(df, df, df)
   unlink(temp_ds("test-fst"), recursive = TRUE)

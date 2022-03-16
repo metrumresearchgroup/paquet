@@ -13,3 +13,9 @@ README\.html
 man/figures
 docs
 ^.*\.tar\.gz$
+\.drone\.yml
+
+^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

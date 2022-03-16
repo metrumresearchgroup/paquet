@@ -1,13 +1,29 @@
 Package: paquet
 Type: Package
-Title: Paquet
-Version: 0.0.1
-Author: Kyle Baron
+Title: File Streams for Big Data
+Version: 0.1.0
+Authors@R:
+    c(person(given = "Kyle T", family = "Baron",
+             role = c("aut", "cre"),
+             email = "kyleb@metrumrg.com",
+             comment = c(ORCID = "0000-0001-7252-5656")),
+      person(given = "Dan", family = "Polhamus",
+             role = "ctb", 
+             email = "danp@metrumrg.com"),
+      person(given = "Seth", family = "Green",
+             role = "ctb", 
+             email = "sethg@metrumrg.com"), 
+      person(given = "Kyle", family = "Meyer", 
+             role = "ctb", 
+             email = "kylem@metrumrg.com"))
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
-Description: Tools for creating and managing file streams.
+Description: Provides tools for creating and managing file streams in support
+  of large simulation or other outputs.
 License: GPL (>=2)
+Depends: 
+  R (>= 3.6)
 Imports: fst
-Suggests: testthat, arrow, qs, knitr, rmarkdown
+Suggests: testthat, arrow, qs, knitr, rmarkdown, dplyr, mrgsolve
 Encoding: UTF-8
 URL: https://github.com/metrumresearchgroup/paquet
 BugReports: https://github.com/metrumresearchgroup/paquet/issues

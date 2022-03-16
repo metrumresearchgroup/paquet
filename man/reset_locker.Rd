@@ -19,6 +19,10 @@ expected that the locker space is created once and then repeatedly
 reset and simulations are run and re-run.
 }
 \details{
+If user confirmation for reset was previously requested via \code{\link[=setup_locker]{setup_locker()}}
+or \code{\link[=config_locker]{config_locker()}}, then the user will be asked to confirm prior
+to reset.
+
 For the locker space to be initialized, the \code{where} directory must not
 exist; if it exists, there will be an error. It is also an error for
 \code{where} to exist and not contain a particular hidden locker file name
@@ -29,5 +33,5 @@ to the files matched by \code{pattern}. If any un-matched files exist after
 clearing the directory, a warning will be issued.
 }
 \seealso{
-\code{\link[=setup_locker]{setup_locker()}}, \code{\link[=noreset_locker]{noreset_locker()}}, \code{\link[=version_locker]{version_locker()}}
+\code{\link[=setup_locker]{setup_locker()}}, \code{\link[=config_locker]{config_locker()}}, \code{\link[=version_locker]{version_locker()}}
 }

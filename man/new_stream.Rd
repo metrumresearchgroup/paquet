@@ -10,9 +10,18 @@
 \usage{
 new_stream(x, ...)
 
-\method{new_stream}{list}(x, locker = NULL, format = NULL, ...)
+\method{new_stream}{list}(x, locker = NULL, format = NULL, ask = FALSE, noreset = FALSE, ...)
 
-\method{new_stream}{data.frame}(x, nchunk, cols = "ID", locker = NULL, format = NULL, ...)
+\method{new_stream}{data.frame}(
+  x,
+  nchunk,
+  cols = "ID",
+  locker = NULL,
+  format = NULL,
+  ask = FALSE,
+  noreset = FALSE,
+  ...
+)
 
 \method{new_stream}{numeric}(x, ...)
 
@@ -29,6 +38,18 @@ directory will be unlinked if it exists and is an established locker
 directory.}
 
 \item{format}{Passed to \code{\link[=format_stream]{format_stream()}}.}
+
+\item{ask}{If \code{TRUE}, then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker space; once this is called, all future attempts to reset the locker
+contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
+\code{ask} requirement can be revoked by calling \code{\link[=config_locker]{config_locker()}}.}
+
+\item{noreset}{If \code{TRUE} then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker directory with \code{noreset = TRUE} to prevent future resets; note that
+this is essentially
+a dead end; there is no way to make the locker space writable using public
+api; use this option if you \strong{really} want to safeguard the output and
+assume complete control over the fate of these files.}
 
 \item{nchunk}{The number of chunks.}
 
@@ -51,10 +72,20 @@ passed) and a class attribute for the output if \code{format} was passed.
 By stream we mean a list that pre-specifies the output file names,
 replicate numbers and possibly input objects for a simulation. Passing
 \code{locker} initiates a call to \code{\link[=setup_locker]{setup_locker()}}, which sets up or resets
-the output directories.
+the output directories. \strong{It is the responsibility of the user to take
+advantage of the features provided by paquet to ensure the safety of outputs
+stored in locker space}.
+}
+\details{
+All methods contain \code{ask} and \code{noreset} arguments which get passed to
+\code{\link[=setup_locker]{setup_locker()}}. Set \code{ask} to \code{TRUE} in order to require confirmation
+(using \code{\link[utils:askYesNo]{utils::askYesNo()}}) every time the command is run again; set
+\code{noreset} to \code{TRUE} to immediately revoke permission to reset the locker
+space. Be sure to \strong{consider using these options} to prevent accidentally
+resetting the locker space.
 
 For the \code{data.frame} method, the data are chunked into a list by columns
-listed in \code{cols}. Ideally, this is a singlel column that operates as
+listed in \code{cols}. Ideally, this is a single column that operates as
 a unique \code{ID} across the data set and is used by \code{\link[=chunk_by_id]{chunk_by_id()}} to
 form the chunks. Alternatively, \code{cols} can be multiple column names which
 are pasted together to form a unique \code{ID} that is used for splitting
@@ -78,5 +109,5 @@ format_is_set(x[[2]])
 }
 \seealso{
 \code{\link[=format_stream]{format_stream()}}, \code{\link[=locate_stream]{locate_stream()}}, \code{\link[=ext_stream]{ext_stream()}}, \code{\link[=file_stream]{file_stream()}},
-\code{\link[=file_set]{file_set()}}
+\code{\link[=file_set]{file_set()}}, \code{\link[=config_locker]{config_locker()}}
 }

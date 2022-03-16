@@ -4,7 +4,7 @@
 \alias{locate_stream}
 \title{Set or change the directory for file_stream objects}
 \usage{
-locate_stream(x, where, initialize = FALSE)
+locate_stream(x, where, initialize = FALSE, ask = FALSE)
 }
 \arguments{
 \item{x}{A \code{file_stream} object.}
@@ -13,6 +13,11 @@ locate_stream(x, where, initialize = FALSE)
 
 \item{initialize}{If \code{TRUE}, then the \code{where} directory is passed to a call
 to \code{\link[=reset_locker]{reset_locker()}}.}
+
+\item{ask}{If \code{TRUE}, then \code{\link[=config_locker]{config_locker()}} will be called on the
+locker space; once this is called, all future attempts to reset the locker
+contents will require user confirmation via \code{\link[utils:askYesNo]{utils::askYesNo()}}; the
+\code{ask} requirement can be revoked by calling \code{\link[=config_locker]{config_locker()}}.}
 }
 \description{
 Add or update the directory location for items in a \code{file_stream} object.

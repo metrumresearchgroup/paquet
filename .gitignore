@@ -1,0 +1,11 @@
+build
+README.html
+paquet.Rcheck
+test.R
+paquet*.tar.gz
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+docs

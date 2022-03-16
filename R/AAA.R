@@ -1,5 +1,6 @@
 #' @importFrom fst read_fst write_fst
 #' @importFrom tools file_path_sans_ext file_ext
+#' @importFrom utils askYesNo
 NULL
 
 #' Tools for creating and managing file streams
@@ -7,7 +8,6 @@ NULL
 #' @name paquet
 #' @rdname paquet
 NULL
-
 
 .pkgenv <- new.env(parent = emptyenv())
 stream_types <- c("fst", "feather", "qs", "rds")

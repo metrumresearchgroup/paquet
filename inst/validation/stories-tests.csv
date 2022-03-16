@@ -1,0 +1,111 @@
+STID,STORY,test,file,context,nb,failed,skipped,error,warning,passed
+CHUNK001,"As a user, I want to chunk a data frame into a list of smaller data frames by the row number. 
+",PQT-CHNK-001,test-chunk.R,chunk data sets,13,0,FALSE,FALSE,0,13
+CHUNK001,"As a user, I want to chunk a data frame into a list of smaller data frames by the row number. 
+",PQT-CHNK-003,test-chunk.R,chunk data sets,14,0,FALSE,FALSE,0,14
+CHUNK002,"As a user, I want to chunk a data frame into a list of smaller data frames by the unique values found in multiple columns.
+",PQT-CHNK-002,test-chunk.R,chunk data sets,3,0,FALSE,FALSE,0,3
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",PQT-LOCK-001,test-locker.R,locker,2,0,FALSE,FALSE,0,2
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",PQT-LOCK-003,test-locker.R,locker,1,0,FALSE,FALSE,0,1
+LOCKER001,"As a user, I want to set up a directory that is dedicated for storing a  single set of output files from a single simulation.
+",PQT-STRM-007,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+LOCKER002,"As a user, I want to reset a pre-established locker space. 
+",PQT-LOCK-002,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+LOCKER003,"As a user, I want to mark a locker space to be ineligible for reset. 
+",PQT-LOCK-004,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+LOCKER004,"As a user, I want to create a backup version of a locker space. 
+",PQT-LOCK-005,test-locker.R,locker,4,0,FALSE,FALSE,0,4
+STREAM001,"As a user, I want to create a stream of output file names. 
+",PQT-STRM-001,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM001,"As a user, I want to create a stream of output file names. 
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM001,"As a user, I want to create a stream of output file names. 
+",PQT-STRM-001,test-stream.R,test-stream,8,0,FALSE,FALSE,0,8
+STREAM001,"As a user, I want to create a stream of output file names. 
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM001,"As a user, I want to create a stream of output file names. 
+",PQT-STRM-006,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",PQT-STRM-007,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",PQT-STRM-008,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM002,"As a user, I want to associate an output format for a stream of output file names.
+",PQT-STRM-008,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM003,"As a user, I want to relocate a stream of output file names. 
+",PQT-STRM-004,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM003,"As a user, I want to relocate a stream of output file names. 
+",PQT-STRM-005,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM004,"As a user, I want to set or update the extension for a stream of output  file names. 
+",PQT-STRM-002,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM004,"As a user, I want to set or update the extension for a stream of output  file names. 
+",PQT-STRM-003,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM005,"As a user, I want to be able to template an output file stream based on a  list of input objects.
+",PQT-STRM-001,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM005,"As a user, I want to be able to template an output file stream based on a  list of input objects.
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM005,"As a user, I want to be able to template an output file stream based on a  list of input objects.
+",PQT-STRM-001,test-stream.R,test-stream,8,0,FALSE,FALSE,0,8
+STREAM005,"As a user, I want to be able to template an output file stream based on a  list of input objects.
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM006,"As a user, I want to be able to initialize output file locker space at the  time the file stream location is set or updated.
+",PQT-STRM-005,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM006,"As a user, I want to be able to initialize output file locker space at the  time the file stream location is set or updated.
+",PQT-STRM-006,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",PQT-STRM-009,test-stream.R,test-stream,2,0,FALSE,FALSE,0,2
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",PQT-STRM-009,test-stream.R,test-stream,3,0,FALSE,FALSE,0,3
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM007,"As a user, I want to automatically write simulated output in fst format.
+",PQT-STRM-009,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",PQT-STRM-009,test-stream.R,test-stream,2,0,FALSE,FALSE,0,2
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",PQT-STRM-009,test-stream.R,test-stream,3,0,FALSE,FALSE,0,3
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM008,"As a user, I want to automatically write simulated output in feather format.
+",PQT-STRM-009,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",PQT-STRM-009,test-stream.R,test-stream,2,0,FALSE,FALSE,0,2
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",PQT-STRM-009,test-stream.R,test-stream,3,0,FALSE,FALSE,0,3
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM009,"As a user, I want to automatically write simulated output in qs format.
+",PQT-STRM-009,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",PQT-STRM-009,test-stream.R,test-stream,2,0,FALSE,FALSE,0,2
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",PQT-STRM-009,test-stream.R,test-stream,3,0,FALSE,FALSE,0,3
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",PQT-STRM-009,test-stream.R,test-stream,4,0,FALSE,FALSE,0,4
+STREAM010,"As a user, I want to automatically write simulated output in rds format.
+",PQT-STRM-009,test-stream.R,test-stream,1,0,FALSE,FALSE,0,1
+STREAM011,"As a user, I want the locker space automatically reset whenever the file  stream is re-created with the same locker name.
+",PQT-LOCK-002,test-locker.R,locker,3,0,FALSE,FALSE,0,3
+STREAM012,"As a user, I want to be able to template an output file stream based on a data frame to be chunked to list.
+",PQT-STRM-001,test-stream.R,test-stream,5,0,FALSE,FALSE,0,5
+STREAM012,"As a user, I want to be able to template an output file stream based on a data frame to be chunked to list.
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+STREAM012,"As a user, I want to be able to template an output file stream based on a data frame to be chunked to list.
+",PQT-STRM-001,test-stream.R,test-stream,8,0,FALSE,FALSE,0,8
+STREAM012,"As a user, I want to be able to template an output file stream based on a data frame to be chunked to list.
+",PQT-STRM-001,test-stream.R,test-stream,6,0,FALSE,FALSE,0,6
+FST001,"As a user, I want to be able to internalize a set of output files in  a locker space when saved in fst format.
+",PQT-FST-001,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4
+FST002,"As a user, I want to be able to get a list of output files in a locker  space when saved in fst format.
+",PQT-FST-001,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4
+FST003,"As a user, I want to be able to look at the head of a set of output files in a locker space when saved in fst format.
+",PQT-FST-001,test-fst.R,test-fst,4,0,FALSE,FALSE,0,4

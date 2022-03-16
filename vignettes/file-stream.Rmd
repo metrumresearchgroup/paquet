@@ -14,7 +14,6 @@ vignette: >
 ---
 
 
-
 # Introduction 
 
 File streams are objects you can create to help in organizing larger simulations
@@ -43,7 +42,8 @@ has_arrow <- requireNamespace("arrow")
 
 ```{r, results = "hide", message = FALSE, warning = FALSE}
 library(dplyr)
-library(mrgsim.parallel)
+library(paquet)
+library(mrgsolve)
 ```
 
 In the simplest use case, we might want to simulate some large number of 
@@ -192,10 +192,10 @@ head(sims[[8]])
 ```
 
 
-`mrgsim.parallel` provides a helper function for reading in a set 
+`paquet` provides a helper function for reading in a set 
 of `fst` files
 
-```{r}
+```{r, eval = FALSE}
 sims <- internalize_fst(locker)
 str(sims)
 ```
@@ -394,7 +394,7 @@ an error.
 Once you create a locker space, that space is reserved for storing output 
 files and should __only__ be used for storing files that are saved using
 `write_stream()`. The locker space is marked by a hidden file that tells
-`mrgsim.parallel` that this is a locker space
+`paquet` that this is a locker space
 
 ```{r}
 x <- new_stream(3, locker = locker)
@@ -425,85 +425,121 @@ happens at the time the file set is created.
 
 ## Safety considerations
 
-Two approached can be taken to secure existing simulations: create a saved "version" or make
-the locker not resettable. 
+Note that `locker` is meant to be a folder on your disk that is resettable. The 
+say way you can call `write.csv("my-data.csv")` when `my-data.csv` already 
+exists, we expect that calling `new_stream(..., locker = "foo/bar")` will 
+(eventually) overwrite the files in `foo/bar`. There is really no difference 
+except that we must clear out the `locker` prior to writing the files. 
+
+That said, we understand that lockers can store very large files that are 
+expensive to generate. So, we have given the user several options to safeguard
+the locker space the next time paquet tries to reset the the space. This is 
+equivalent to calling
+
+```{r, eval = FALSE}
+write.csv("my-data.csv")
+```
+
+and getting an error or asking for confirmation if `my-data.csv` exists. The 
+user is encouraged to understand how `new_stream()` works and how to effectively 
+use the safeguards outlined here. Only you can properly safeguard the data; we
+give you the tools and it is up to you to use them. If you do choose to use
+these tools, you are responsible for all intended and un-intended consequences. 
+The safety tools are only in place to prevent accidental removal of files in 
+the locker space and there is no guarantee that the locker space will at any 
+point only contain the files that you intended to retain; you own that 
+responsibility when you opt in to these tools.
+
+Several approaches are available to secure future or existing files which may 
+be stored in locker space:
+
+1. `ask`: set up locker space so that you are asked every time a locker reset
+   is requested
+1. `noreset`: make the locker non-resettable; this can be done at the time the 
+   locker space is created or after the fact
+1. `version`: create a versioned back up of existing simulations
+
+
+### Ask
+
+This code is not executed, but provided as example for you. To require user
+confirmation for locker reset, pass `ask = TRUE` when creating a new file stream
+
+```{r, eval = FALSE}
+x <- new_stream(100, locker = "foo/bar", ask = TRUE)
+```
+
+This command creates a locker space in `foo/bar` and marks that directory 
+so that every time you try to reset the locker space (clear the output files), 
+you will be prompted to confirm the reset using `utils::askYesNo`. 
+
+You can also convert an existing locker space so that you are asked every 
+time locker reset is attempted using
+
+```{r, eval = FALSE}
+config_locker("foo/bar", ask = TRUE)
+```
+
+You can remove the ask requirement with
+
+```{r, eval = FALSE}
+config_locker("foo/bar", ask = FALSE)
+```
+
+Please read and understand the documentation for `setup_locker`; if anything is 
+not clear, please ask. 
+
+### No Reset
+
+You can mark a locker space un-resettable. This can be done when a file stream
+is created
+
+```{r, eval = FALSE}
+x <- new_stream(100, locker = "foo/bar", noreset = TRUE)
+```
+
+This command creates locker space and immediately revokes the ability to 
+reset the space. You can also take an existing locker space and revoke with 
+
+```{r, eval = FALSE}
+config_locker("foo/bar", noreset = TRUE)
+```
+
+One this is called, the space can no longer be reset. To restore reset-ability:
+
+```{r, eval = FALSE}
+config_locker("foo/bar", noreset = FALSE)
+```
+
 
 ### Versions
 
 To save a version of some simulations, call `version_locker()`
 
-```{r, include = FALSE}
-new_locker <- paste0(locker, "-v000")
-if(dir.exists(new_locker)) unlink(new_locker, recursive = TRUE)
-```
 
-
-```{r}
+```{r, eval = FALSE}
 y <- version_locker(locker, version = "v000")
 ```
 
-This creates a new directory named according to the existing locker name, but with a "version"
-tag attached, and copies all the locker files to this new directory. So if the locker is named
+This creates a new directory named according to the existing locker name, but 
+with a "version" tag attached, and copies all the locker files to this new 
+directory. 
 
-```{r}
-basename(locker)
-```
-
-then the version would be named
-
-```{r}
-basename(y)
-```
-
-See the help topic `?version_locker` for more options around this versioning process. New versions
-are not automatically incremented (e.g. "locker-001", "locker-002") by design. The intent behind the 
-locker system is to create a re-writable space. Versioning an existing locker is just a
-convenient way to stash existing simulations under a similar name. Note that you can also create
-a new version at your call to `new_stream()`
+See the help topic `?version_locker` for more options around this versioning 
+process. New versions are not automatically incremented (e.g. "locker-001", 
+"locker-002") by design. The intent behind the locker system is to create a 
+re-writable space. Versioning an existing locker is just a convenient way to 
+stash existing simulations under a similar name. Note that you can also create a 
+new version at your call to `new_stream()`
 
 ```{r, eval = FALSE}
 x <- new_stream(100, locker = "existing/locker-v2")
 ```
 
-Going forward, simulations will be saved to "version 2" of a locker location that already exists. 
-There is nothing special about this setup; just some creativity in naming output directories.
+Going forward, simulations will be saved to "version 2" of a locker location 
+that already exists. There is nothing special about this setup; just some 
+creativity in naming output directories.
 
-Caution is advised: the locker system was created to save very large simulation outputs; by continuously 
-creating new versions, you could quickly overrun your disk space. This should be used with care. 
-
-### Prevent reset
-
-To prevent the locker from being reset, use `noreset_locker()`; this removes the hidden file
-designating the directory as a valid locker space and prevents it from being cleared.
-
-```{r, include = FALSE}
-unlink(locker, recursive = TRUE)
-```
-
-```{r}
-x <- new_stream(5, locker = locker)
-x <- new_stream(5, locker = locker)
-x <- new_stream(5, locker = locker)
-noreset_locker(locker)
-cat("foo", file = file.path(locker, 'foo.txt'))
-# new_stream(5, locker = locker)
-# list.files(locker)
-```
-
-```{r, include = FALSE}
-if(dir.exists(locker)) unlink(locker, recursive = TRUE)
-```
-
-If you _really_ want to be safe, you can disable the resetting of the locker
-space immediately after creating it
-
-```{r}
-x <- new_stream(5, locker = locker)
-noreset_locker(locker)
-```
-
-The next time you try to reset this particular locker space, you will be denied
-and an error will be generated. Only use this option when safety is your 
-number one priority; it will be inconvenient because you will always need to 
-manually clean up the locker space or generate new locations every time the 
-simulations are re-run.
+Caution is advised: the locker system was created to save very large 
+simulation outputs; by continuously creating new versions, you could quickly 
+overrun your disk space. This should be used with care. 

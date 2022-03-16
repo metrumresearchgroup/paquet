@@ -13,7 +13,7 @@ idata2 <- expand.grid(CL = runif(40, 0.5, 1.5))
 idata$ID <- seq(nrow(idata))
 idata2$ID <- seq(nrow(idata2))
 
-test_that("chunk data", {
+test_that("chunk data [PQT-CHNK-001]", {
   x <- chunk_by_id(data, nchunk = 5)
   expect_identical(length(x), 5L)
   
@@ -63,7 +63,7 @@ test_that("chunk data", {
   expect_equal(data, data2)
 })
 
-test_that("chunk data by multiple cols", {
+test_that("chunk data by multiple cols [PQT-CHNK-002]", {
   data <- data.frame(a = c(rep("a", 3), rep("b", 4)), 
                      b = c(rep("a", 4), rep("b", 2), "c"))
   chunked <- chunk_by_cols(data, nchunk = 3, cols = c("a", "b"))
@@ -82,7 +82,7 @@ test_that("chunk data by multiple cols", {
   expect_identical(x, y)
 })
 
-test_that("chunk bad input", {
+test_that("chunk bad input [PQT-CHNK-003]", {
   expect_error(chunk_by_id(list(), 5))
   expect_error(chunk_by_id(matrix(0), 5))
   expect_error(chunk_by_id(data, 0))
