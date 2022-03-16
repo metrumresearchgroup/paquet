@@ -1,3 +1,3 @@
-# paquet (development version)
+# paquet 0.0.1.9101
 
 - Initial release
