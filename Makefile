@@ -83,3 +83,6 @@ stories:
 	make unit-csv
 	Rscript inst/script/stories.R
 
+.PHONY: validation-docs
+validation-docs:
+	Rscript inst/validation/build-validation-docs.R ${PACKAGE} ${VERSION}
