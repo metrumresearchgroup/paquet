@@ -9,3 +9,5 @@ paquet*.tar.gz
 .Ruserdata
 .DS_Store
 docs
+renv/
+.Rprofile

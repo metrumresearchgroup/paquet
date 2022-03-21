@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 foo
 NEWS\.md
 ^.*\.Rproj$
@@ -19,3 +21,5 @@ docs
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+
+^pkgr\.yml$
