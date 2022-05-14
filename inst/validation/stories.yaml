@@ -124,6 +124,13 @@ STREAM008:
   tests: 
   - PQT-STRM-009
   ProductRisk: low
+STREAM013: 
+  name: Write to parquet format
+  description: >
+    As a user, I want to automatically write simulated output in parquet format.
+  tests: 
+  - PQT-STRM-009
+  ProductRisk: low
 STREAM009: 
   name: Write to qs format
   description: >
