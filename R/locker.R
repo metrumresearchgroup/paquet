@@ -164,7 +164,7 @@ validate_dir_locker <- function(where) {
 clear_locker <- function(where, pattern) {
   validate_dir_locker(where)
   if(!is.character(pattern)) {
-    pattern <- "\\.(fst|feather|csv|qs|rds|ext)$"
+    pattern <- "\\.(fst|feather|parquet|csv|qs|rds|ext)$"
   } 
   files <- list.files(
     where, 
