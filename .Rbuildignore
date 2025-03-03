@@ -13,7 +13,7 @@ README\.html
 man/figures
 docs
 ^.*\.tar\.gz$
-\.drone\.yml
+^\.github$
 
 ^README\.Rmd$
 ^_pkgdown\.yml$
