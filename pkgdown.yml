@@ -1,7 +1,9 @@
-pandoc: 2.14.0.3
-pkgdown: 2.0.2
+pandoc: 3.1.3
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   file-stream: file-stream.html
-last_built: 2022-04-01T13:19Z
-
+last_built: 2025-03-03T17:56Z
+urls:
+  reference: https://metrumresearchgroup.github.io/paquet/reference
+  article: https://metrumresearchgroup.github.io/paquet/articles

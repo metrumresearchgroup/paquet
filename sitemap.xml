@@ -1,90 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/articles/file-stream.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/chunk_data_frame.html</loc>
-  </url>
-  <url>
-    <loc>/reference/config_locker.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ext_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/file_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/file_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_is_set.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/head_fst.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/internalize_fst.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is.file_set_item.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is.file_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is.locker_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_locker_dir.html</loc>
-  </url>
-  <url>
-    <loc>/reference/list_fst.html</loc>
-  </url>
-  <url>
-    <loc>/reference/locate_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/new_stream.html</loc>
-  </url>
-  <url>
-    <loc>/reference/paquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reset_locker.html</loc>
-  </url>
-  <url>
-    <loc>/reference/setup_locker.html</loc>
-  </url>
-  <url>
-    <loc>/reference/temp_ds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/version_locker.html</loc>
-  </url>
-  <url>
-    <loc>/reference/write_stream.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://metrumresearchgroup.github.io/paquet/404.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/articles/file-stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/articles/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/authors.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/news/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/chunk_data_frame.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/config_locker.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/ext_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/file_set.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/file_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/format_is_set.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/format_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/head_fst.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/index.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/internalize_fst.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/is.file_set_item.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/is.file_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/is.locker_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/is_locker_dir.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/list_fst.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/locate_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/new_stream.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/paquet-package.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/reset_locker.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/setup_locker.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/temp_ds.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/version_locker.html</loc></url>
+<url><loc>https://metrumresearchgroup.github.io/paquet/reference/write_stream.html</loc></url>
 </urlset>
+
