@@ -26,10 +26,14 @@ reference:
   - new_stream.data.frame
   - new_stream.list
   - new_stream.numeric
+  - is.locker_stream
   - locate_stream
   - ext_stream
   - format_stream
+  - format_is_set
   - file_stream
+  - is.file_stream
+  - is.file_set_item
   - file_set
   
 - title: Write outputs by format
