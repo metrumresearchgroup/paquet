@@ -3,11 +3,8 @@
 #' @importFrom utils askYesNo
 NULL
 
-#' Tools for creating and managing file streams
-#' 
-#' @name paquet
-#' @rdname paquet
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 .pkgenv <- new.env(parent = emptyenv())
 stream_types <- c("fst", "feather", "qs", "rds")
