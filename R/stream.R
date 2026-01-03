@@ -238,7 +238,7 @@ new_stream.character <- function(x, ...) {
 #' 
 #' @return
 #' `x` is returned with a new class attribute reflecting the expected output
-#' format (`fst`, `parquet` (arrow), `feather` (arrow),  `qs` or `rds`).
+#' format (`fst`, `parquet` (arrow), `feather` (arrow), `qs` or `rds`).
 #' 
 #' @seealso [format_is_set()], [locate_stream()], [ext_stream()], 
 #'          [new_stream()], [file_stream()], [file_set()]
