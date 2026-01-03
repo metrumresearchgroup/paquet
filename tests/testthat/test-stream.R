@@ -180,7 +180,7 @@ test_that("writer function: parquet [PQT-STRM-009]", {
   expect_equivalent(mt, mtcars)
   expect_error(
     write_stream(x[[1]], list(mtcars)), 
-    regexp="must be a data.frame"
+    regexp = "must be a data.frame"
   )
 })
 
