@@ -17,7 +17,7 @@ If a file extension exists, it is removed first.
 }
 \examples{
 x <- new_stream(3)
-x <- ext_stream(x, "feather")
+x <- ext_stream(x, "parquet")
 x[[1]]$file
 
 }
