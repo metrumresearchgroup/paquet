@@ -26,7 +26,7 @@ is set but there is no directory path associated with the \code{file} spot in
 }
 \value{
 \code{x} is returned with a new class attribute reflecting the expected output
-format (\code{fst}, \code{parquet} (arrow), \code{feather} (arrow),  \code{qs} or \code{rds}).
+format (\code{fst}, \code{parquet} (arrow), \code{feather} (arrow), \code{qs} or \code{rds}).
 }
 \description{
 The format is set on the file objects inside the list so that the file
