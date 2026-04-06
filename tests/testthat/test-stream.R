@@ -146,13 +146,22 @@ test_that("writer function: fst [PQT-STRM-009]", {
   )
 })
 
-test_that("writer function: qs [PQT-STRM-009]", {
-  skip_if_not_installed("qs")
-  expect_true(paquet:::qs_installed())
+test_that("writer function: qs  is deprecated", {
   unlink(temp_ds("write/qs"), recursive = TRUE)
-  x <- new_stream(1, locker = temp_ds("write/qs"), format = "qs")
+  expect_error(
+    new_stream(1, locker = temp_ds("write/qs"), format = "qs"), 
+    "'arg' should be one of", 
+    fixed = TRUE
+  )
+})
+
+test_that("writer function: qdata", {
+  skip_if_not_installed("qs2")
+  expect_true(paquet:::qs2_installed())
+  unlink(temp_ds("write/qdata"), recursive = TRUE)
+  x <- new_stream(1, locker = temp_ds("write/qdata"), format = "qdata")
   expect_true(write_stream(x[[1]], mtcars))
-  mt <- qs::qread(x[[1]]$file)
+  mt <- qs2::qd_read(x[[1]]$file)
   expect_equivalent(mt, mtcars)
 })
 
