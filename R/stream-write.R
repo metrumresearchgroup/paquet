@@ -93,6 +93,15 @@ write_stream.stream_format_qs <- function(x, data, dir = NULL, ...) {
 
 #' @rdname write_stream
 #' @export
+write_stream.stream_format_qdata <- function(x, data, dir = NULL, ...) {
+  require_qs2()
+  file <- write_stream_dir_check(x$file, dir)
+  qs2::qd_save(object = data, file = file)
+  return(invisible(TRUE))
+}
+
+#' @rdname write_stream
+#' @export
 write_stream.stream_format_rds <- function(x, data, dir = NULL, ...) {
   file <- write_stream_dir_check(x$file, dir)
   saveRDS(object = data, file = file)

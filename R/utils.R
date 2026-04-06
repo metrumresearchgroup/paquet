@@ -10,7 +10,13 @@ require_qs <- function() {
     stop("the qs package must be installed to complete this task.")  
   }
 }
+require_qs2 <- function() {
+  if(!requireNamespace("qs2")) {
+    stop("the qs2 package must be installed to complete this task.")  
+  }
+}
 qs_installed <- function() requireNamespace("qs")
+qs2_installed <- function() requireNamespace("qs2")
 fst_installed <- function() requireNamespace("fst")
 
 #' Create a path to a dataset in tempdir
