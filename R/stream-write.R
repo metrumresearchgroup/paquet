@@ -85,10 +85,11 @@ write_stream.stream_format_parquet <- function(x, data, dir = NULL, ...) {
 #' @rdname write_stream
 #' @export
 write_stream.stream_format_qs <- function(x, data, dir = NULL, ...) {
-  require_qs()
-  file <- write_stream_dir_check(x$file, dir)
-  qs::qsave(x = data, file = file)
-  return(invisible(TRUE))
+  deprecated_qs()
+  # require_qs()
+  # file <- write_stream_dir_check(x$file, dir)
+  # qs::qsave(x = data, file = file)
+  # return(invisible(TRUE))
 }
 
 #' @rdname write_stream

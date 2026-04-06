@@ -75,7 +75,7 @@ is.file_set_item <- function(x) !is.null(attr(x, "file_set_item", exact = TRUE))
 #' Check format status of file set item
 #' 
 #' This can be used to check if a file set item has been assigned an output 
-#' format (e.g. `fst`, `parquet`, `feather`, `qs`, `qdata`, or `rds`). If the 
+#' format (e.g. `fst`, `parquet`, `feather`, `qdata`, or `rds`). If the 
 # check returns `FALSE` it would signal that data should be returned rather 
 #' than calling [write_stream()].
 #' 
@@ -238,7 +238,7 @@ new_stream.character <- function(x, ...) {
 #' 
 #' @return
 #' `x` is returned with a new class attribute reflecting the expected output
-#' format (`fst`, `parquet` (arrow), `feather` (arrow), `qs`, `qdata`, or `rds`).
+#' format (`fst`, `parquet` (arrow), `feather` (arrow), `qdata`, or `rds`).
 #' 
 #' @seealso [format_is_set()], [locate_stream()], [ext_stream()], 
 #'          [new_stream()], [file_stream()], [file_set()]
@@ -251,7 +251,7 @@ new_stream.character <- function(x, ...) {
 #' format_is_set(fs[[1]])  
 #'  
 #' @export
-format_stream <- function(x, type = c("fst", "feather",  "parquet", "qs", "qdata", "rds"), 
+format_stream <- function(x, type = c("fst", "feather",  "parquet", "qdata", "rds"), 
                           set_ext = TRUE, warn = FALSE) {
   
   if(!is.file_stream(x)) {
@@ -260,7 +260,7 @@ format_stream <- function(x, type = c("fst", "feather",  "parquet", "qs", "qdata
   type <- match.arg(type)
   format <- .pkgenv$stream_format_classes[type]
   if(type %in% c("feather", "parquet")) require_arrow()
-  if(type=="qs") require_qs()
+  if(type=="qs") deprecated_qs()
   if(type=="qdata") require_qs2()
   clx <- class(x)
   cl <- c(format, "list")
