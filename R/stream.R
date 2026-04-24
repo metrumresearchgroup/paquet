@@ -257,10 +257,10 @@ format_stream <- function(x, type = c("fst", "feather",  "parquet", "qdata", "rd
   if(!is.file_stream(x)) {
     stop("`x` must be a file_stream object.")  
   }
+  if(identical(type, "qs")) deprecated_qs()
   type <- match.arg(type)
   format <- .pkgenv$stream_format_classes[type]
   if(type %in% c("feather", "parquet")) require_arrow()
-  if(type=="qs") deprecated_qs()
   if(type=="qdata") require_qs2()
   clx <- class(x)
   cl <- c(format, "list")

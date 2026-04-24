@@ -146,11 +146,10 @@ test_that("writer function: fst [PQT-STRM-009]", {
   )
 })
 
-test_that("writer function: qs  is deprecated", {
-  unlink(temp_ds("write/qs"), recursive = TRUE)
+test_that("writer function: qs is deprecated", {
   expect_error(
-    new_stream(1, locker = temp_ds("write/qs"), format = "qs"), 
-    "'arg' should be one of", 
+    format_stream(new_stream(1), "qs"),
+    "support for `qs` format is deprecated",
     fixed = TRUE
   )
 })

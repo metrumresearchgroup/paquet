@@ -17,9 +17,6 @@ deprecated_qs <- function() {
   )
 }
 
-require_qs <- function() {
-  deprecated_qs()
-}
 
 require_qs2 <- function() {
   if(!requireNamespace("qs2")) {
