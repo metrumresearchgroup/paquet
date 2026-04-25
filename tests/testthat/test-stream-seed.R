@@ -41,7 +41,7 @@ test_that("set_stream_seed errors if seed element is not a valid L'Ecuyer seed",
   x <- new_stream(3)
   expect_error(
     set_stream_seed(x[[1]]),
-    regexp = "`x$seed` must be an integer vector of length 7; call `seed_stream()` before running this stream.",
+    regexp = "`x$seed` is not a L'Ecuyer seed",
     fixed = TRUE
   )
 })
