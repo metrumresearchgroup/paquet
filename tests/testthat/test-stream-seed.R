@@ -37,11 +37,11 @@ test_that("seed_stream works with a single-item stream", {
   expect_true(is.integer(x[[1]]$seed))
 })
 
-test_that("set_stream_seed errors if seed element is NULL", {
+test_that("set_stream_seed errors if seed element is not a valid L'Ecuyer seed", {
   x <- new_stream(3)
   expect_error(
     set_stream_seed(x[[1]]),
-    regexp = "`x$seed` is NULL; call `seed_stream()` before running this stream.",
+    regexp = "`x$seed` must be an integer vector of length 7; call `seed_stream()` before running this stream.",
     fixed = TRUE
   )
 })

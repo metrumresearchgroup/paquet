@@ -103,9 +103,17 @@ summary.file_stream <- function(object, ...) { #nocov start
   x <- object
   a <- paste0("Length: ", length(x))
   format <- class(x[[1]])[1]
-  b <- paste0("Format: ", format)
-  c <- paste0("Type: ", class(x[[1]]$x)[1])
-  d <- paste0("Locker: ", is.locker_stream(x))
-  e <- paste0("File[1]: ", x[[1]]$file)
-  cat(a, c, b, e, d, sep = "\n")
-} #nocov end
+  seed <- !is.null(x[[1]]$seed)
+  b <- paste0("Type: ", class(x[[1]]$x)[1])
+  c <- paste0("Format: ", format)
+  d <- paste0("File[1]: ", x[[1]]$file)
+  e <- paste0("Seed: ", seed)
+  f <- paste0("Locker: ", is.locker_stream(x))
+  cat(a, b, c, d, e, f, sep = "\n")
+
+} 
+
+#' @export 
+print.file_stream <- function(x, ...) {
+  summary(x)
+}#nocov end

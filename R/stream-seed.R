@@ -56,8 +56,8 @@ seed_stream <- function(x, seed) {
 #'
 #' @export
 set_stream_seed <- function(x) {
-  if (is.null(x$seed)) {
-    stop("`x$seed` is NULL; call `seed_stream()` before running this stream.")
+  if (!is.integer(x$seed) || length(x$seed) != 7L) {
+    stop("`x$seed` must be an integer vector of length 7; call `seed_stream()` before running this stream.")
   }
   assign(".Random.seed", x$seed, envir = .GlobalEnv)
   invisible(x)
