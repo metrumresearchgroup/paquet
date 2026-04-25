@@ -22,7 +22,9 @@ running any stochastic code.
 }
 \details{
 Internally calls \code{set.seed(seed, kind = "L'Ecuyer-CMRG")} and then advances
-the RNG state across items using \code{\link[parallel:RngStream]{parallel::nextRNGStream()}}.
+the RNG state across items using \code{\link[parallel:RngStream]{parallel::nextRNGStream()}}. The caller's
+\code{.Random.seed} (both kind and state) is restored on, so the parent process
+RNG is unaffected.
 }
 \examples{
 s <- new_stream(4)

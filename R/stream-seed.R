@@ -8,7 +8,9 @@
 #'
 #' @details
 #' Internally calls `set.seed(seed, kind = "L'Ecuyer-CMRG")` and then advances
-#' the RNG state across items using [parallel::nextRNGStream()].
+#' the RNG state across items using [parallel::nextRNGStream()]. The caller's
+#' `.Random.seed` (both kind and state) is restored on, so the parent process 
+#' RNG is unaffected.
 #'
 #' @param x a `file_stream` object.
 #' @param seed a single integer passed to [set.seed()].
@@ -28,10 +30,21 @@ seed_stream <- function(x, seed) {
   if (!is.file_stream(x)) {
     stop("`x` must be a file_stream object.")
   }
+  old_seed <- if(exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
+    .Random.seed
+  } else {
+    NULL
+  }
+  on.exit(
+    if(!is.null(old_seed)) {
+      assign(".Random.seed", old_seed, envir = .GlobalEnv)
+    },
+    add = TRUE
+  )
   set.seed(
-    seed, 
-    kind = "L'Ecuyer-CMRG", 
-    normal.kind = "Inversion", 
+    seed,
+    kind = "L'Ecuyer-CMRG",
+    normal.kind = "Inversion",
     sample.kind = "Rejection"
   )
   current <- .Random.seed
