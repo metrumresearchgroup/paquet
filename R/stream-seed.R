@@ -28,7 +28,12 @@ seed_stream <- function(x, seed) {
   if (!is.file_stream(x)) {
     stop("`x` must be a file_stream object.")
   }
-  set.seed(seed, kind = "L'Ecuyer-CMRG")
+  set.seed(
+    seed, 
+    kind = "L'Ecuyer-CMRG", 
+    normal.kind = "Inversion", 
+    sample.kind = "Rejection"
+  )
   current <- .Random.seed
   for (i in seq_along(x)) {
     x[[i]]$seed <- current
