@@ -29,9 +29,10 @@ seed_stream <- function(x, seed) {
     stop("`x` must be a file_stream object.")
   }
   set.seed(seed, kind = "L'Ecuyer-CMRG")
-  x[[1]]$seed <- .Random.seed
-  for (i in seq_along(x)[-1]) {
-    x[[i]]$seed <- parallel::nextRNGStream(x[[i - 1]]$seed)
+  current <- .Random.seed
+  for (i in seq_along(x)) {
+    x[[i]]$seed <- current
+    current <- parallel::nextRNGStream(current)
   }
   x
 }
