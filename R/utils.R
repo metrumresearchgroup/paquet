@@ -5,12 +5,26 @@ require_arrow <- function() {
   }
 }
 arrow_installed <- function() requireNamespace("arrow")
-require_qs <- function() {
-  if(!requireNamespace("qs")) {
-    stop("the qs package must be installed to complete this task.")  
+
+deprecated_qs <- function() {
+  stop(
+    paste0(
+      "`qs` is no longer supported; ", 
+      "use format `qdata` with the `qs2` package instead; ", 
+      "`qdata` files will be written with `qs2::qd_save()` and ",
+      "can be read with qs2::qd_read()."
+    )
+  )
+}
+
+
+require_qs2 <- function() {
+  if(!requireNamespace("qs2")) {
+    stop("the qs2 package must be installed to complete this task.")  
   }
 }
-qs_installed <- function() requireNamespace("qs")
+qs_installed <- function() FALSE
+qs2_installed <- function() requireNamespace("qs2")
 fst_installed <- function() requireNamespace("fst")
 
 #' Create a path to a dataset in tempdir

@@ -7,7 +7,7 @@ NULL
 "_PACKAGE"
 
 .pkgenv <- new.env(parent = emptyenv())
-stream_types <- c("fst", "feather", "parquet", "qs", "rds")
+stream_types <- c("fst", "feather", "parquet", "qdata", "rds")
 stream_format_classes <- paste0("stream_format_", stream_types)
 names(stream_format_classes) <- stream_types
 .pkgenv$stream_format_classes <- stream_format_classes

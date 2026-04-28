@@ -7,6 +7,7 @@
 \alias{write_stream.stream_format_feather}
 \alias{write_stream.stream_format_parquet}
 \alias{write_stream.stream_format_qs}
+\alias{write_stream.stream_format_qdata}
 \alias{write_stream.stream_format_rds}
 \title{Writer functions for stream_file objects}
 \usage{
@@ -21,6 +22,8 @@ write_stream(x, ...)
 \method{write_stream}{stream_format_parquet}(x, data, dir = NULL, ...)
 
 \method{write_stream}{stream_format_qs}(x, data, dir = NULL, ...)
+
+\method{write_stream}{stream_format_qdata}(x, data, dir = NULL, ...)
 
 \method{write_stream}{stream_format_rds}(x, data, dir = NULL, ...)
 }
