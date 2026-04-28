@@ -117,6 +117,10 @@ summary.file_stream <- function(object, ...) { #nocov start
     msg <- paste0("`", name, "` is not available in this object.")
     stop(msg)
   }
-  simplify <- is.atomic(x[[1]][[name]])
-  sapply(x, function(xi) xi[[name]], simplify = simplify)
+  prototype <- x[[1]][[name]]
+  if(is.atomic(prototype) && length(prototype)==1) {
+    vapply(x, function(xi) xi[[name]], FUN.VALUE = prototype, USE.NAMES = FALSE)
+  } else {
+    lapply(x, function(xi) xi[[name]])
+  }
 }

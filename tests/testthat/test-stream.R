@@ -219,6 +219,11 @@ test_that("extract non-atomic x using $", {
   out <- x$x
   expect_is(out, "list")
   expect_identical(out[[1]], mtcars)
+
+  x <- new_stream(list(seq(1,5), seq(10,20)))
+  out <- x$x
+  expect_is(out, "list")
+  expect_identical(out[[1]], seq(1,5))
 })
 
 test_that("extract bad target using $", {
