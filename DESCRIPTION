@@ -22,8 +22,8 @@ Description: Provides tools for creating and managing file streams in support
 License: GPL (>=2)
 Depends: 
   R (>= 3.6)
-Imports: fst, parallel
-Suggests: testthat, arrow, qs, knitr, rmarkdown, dplyr, mrgsolve
+Imports: fst
+Suggests: testthat, arrow, qs2, knitr, rmarkdown, dplyr, mrgsolve
 Encoding: UTF-8
 URL: https://metrumresearchgroup.github.io/paquet, https://github.com/metrumresearchgroup/paquet
 BugReports: https://github.com/metrumresearchgroup/paquet/issues
