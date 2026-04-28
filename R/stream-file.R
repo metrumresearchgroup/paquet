@@ -109,3 +109,14 @@ summary.file_stream <- function(object, ...) { #nocov start
   e <- paste0("File[1]: ", x[[1]]$file)
   cat(a, c, b, e, d, sep = "\n")
 } #nocov end
+
+#' @export
+`$.file_stream` <- function(x, name) {
+  if(!length(x)) return(NULL)
+  if(!name %in% names(x[[1]])) {
+    msg <- paste0("`", name, "` is not available in this object.")
+    stop(msg)
+  }
+  simplify <- is.atomic(x[[1]][[name]])
+  sapply(x, function(xi) xi[[name]], simplify = simplify)
+}

@@ -189,3 +189,35 @@ test_that("writer function: default [PQT-STRM-009]", {
   x <- new_stream(1, locker = temp_ds("write/default"), ext = "rds")
   expect_false(write_stream(x[[1]], mtcars))
 })
+
+test_that("extract i using $", {
+  x <- new_stream(5)
+  out <- x$i
+  expect_is(out, "integer")
+  expect_identical(out, seq(5))
+})
+
+test_that("extract file using $", {
+  x <- new_stream(5)
+  i <- seq(5)
+  xi <- paste0(i, "-", 5)
+  out <- x$file
+  expect_is(out, "character")
+  expect_identical(out, xi)
+})
+
+test_that("extract non-atomic x using $", {
+  x <- new_stream(list(mtcars, mtcars))
+  out <- x$x
+  expect_is(out, "list")
+  expect_identical(out[[1]], mtcars)
+})
+
+test_that("extract bad target using $", {
+  x <- new_stream(5)
+  expect_error(
+    x$bad_target, 
+    "`bad_target` is not available"
+  )
+})
+
