@@ -9,7 +9,7 @@ arrow_installed <- function() requireNamespace("arrow")
 deprecated_qs <- function() {
   stop(
     paste0(
-      "support for `qs` format is deprecated; ", 
+      "`qs` is no longer supported; ", 
       "use format `qdata` with the `qs2` package instead; ", 
       "`qdata` files will be written with `qs2::qd_save()` and ",
       "can be read with qs2::qd_read()."
