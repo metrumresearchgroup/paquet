@@ -30,11 +30,7 @@ seed_stream <- function(x, seed) {
   if (!is.file_stream(x)) {
     stop("`x` must be a file_stream object.")
   }
-  old_seed <- if(exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
-    .Random.seed
-  } else {
-    NULL
-  }
+  old_seed <- globalenv()[[".Random.seed"]]
   on.exit(
     if(!is.null(old_seed)) {
       assign(".Random.seed", old_seed, envir = .GlobalEnv)
@@ -75,6 +71,7 @@ seed_stream <- function(x, seed) {
 #'
 #' @export
 set_stream_seed <- function(x) {
+  # Condition adopted from parallel::nextRNGStream()
   if (!is.integer(x$seed) || x$seed[1L]%%100L != 7L) {
     stop("`x$seed` is not a L'Ecuyer seed; call `seed_stream()` on the stream before running.")
   }
