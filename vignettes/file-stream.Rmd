@@ -161,7 +161,7 @@ basename(x[[5]]$file)
 
 will be saved in `fst` format when the time comes. `fst` a very efficient format
 for storing data frames in R; but you can choose other formats, like `parquet`
-(also for data frames) or `qs` or `rds` for saving any R object. 
+(also for data frames) or `qdata` or `rds` for saving any R object. 
 
 To save the `ith` replicate to its pre-defined file location, we call the 
 function `write_stream()` inside our simulation loop
