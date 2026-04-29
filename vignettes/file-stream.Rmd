@@ -74,6 +74,13 @@ There are three named positions
 1. `file` the stem of the output file for this replicate
 1. `x` the data payload for this replicate; in this case it is just `i`
 
+These can be extracted with the `$` operator.
+
+```{r}
+x$x
+x$file
+```
+
 The stem of the output file is named with the current replicate number (`05`) 
 and the total number of replicates in the set (`10`).  The file stem will always 
 be configured to have the format `n` of `N`; but can be customized with a 
