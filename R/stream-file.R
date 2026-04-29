@@ -113,6 +113,21 @@ summary.file_stream <- function(object, ...) { #nocov start
 
 } 
 
+#' @export
+`$.file_stream` <- function(x, name) {
+  if(!length(x)) return(NULL)
+  if(!name %in% names(x[[1]])) {
+    msg <- paste0("`", name, "` is not available in this object.")
+    stop(msg)
+  }
+  prototype <- x[[1]][[name]]
+  if(is.atomic(prototype) && length(prototype)==1) {
+    vapply(x, function(xi) xi[[name]], FUN.VALUE = prototype, USE.NAMES = FALSE)
+  } else {
+    lapply(x, function(xi) xi[[name]])
+  }
+}
+
 #' @export 
 print.file_stream <- function(x, ...) {
   summary(x)
