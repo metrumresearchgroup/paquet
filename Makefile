@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-export _R_CHECK_FORCE_SUGGESTS_=false
 PACKAGE=paquet
 VERSION=$(shell grep Version DESCRIPTION |awk '{print $$2}')
 TARBALL=${PACKAGE}_${VERSION}.tar.gz
