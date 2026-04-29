@@ -1,6 +1,7 @@
 #' @importFrom fst read_fst write_fst
 #' @importFrom tools file_path_sans_ext file_ext
 #' @importFrom utils askYesNo
+#' @importFrom parallel nextRNGStream
 NULL
 
 #' @keywords internal

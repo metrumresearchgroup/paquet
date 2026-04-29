@@ -29,6 +29,8 @@ reference:
   - is.locker_stream
   - locate_stream
   - ext_stream
+  - seed_stream
+  - set_stream_seed
   - format_stream
   - format_is_set
   - file_stream
